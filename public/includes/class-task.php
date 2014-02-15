@@ -75,7 +75,8 @@ class NerveTask_Task {
 			return;
 		}
 
-		if ( ( defined('DOING_AJAX') && DOING_AJAX ) || !empty( $_POST ) ) {
+		if ( ( defined('DOING_AJAX') && DOING_AJAX ) || !empty( $_POST['nervetask_new_task'] ) ) {
+
 			$_POST = maybe_unserialize( $_POST );
 			$post_content	= $_POST['nervetask-new-task-content'];
 			$post_status	= 'publish';
