@@ -65,6 +65,9 @@ class NerveTask {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
+		// Register post types and taxonomies
+		add_action( 'init', array( $this, 'register' ) );
+
 	}
 
 	/**
@@ -261,6 +264,131 @@ class NerveTask {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( 'jquery' ), self::VERSION );
+	}
+
+	/**
+	 * Register custom post types and taxonomies.
+	 *
+	 * @since    0.1.0
+	 */
+	public function register() {
+
+		$task_labels = array(
+			'name' => _x( 'Tasks', 'nervetask' ),
+			'singular_name' => _x( 'Task', 'nervetask' ),
+			'add_new' => _x( 'Add New', 'nervetask' ),
+			'add_new_item' => _x( 'Add New Task', 'nervetask' ),
+			'edit_item' => _x( 'Edit Task', 'nervetask' ),
+			'new_item' => _x( 'New Task', 'nervetask' ),
+			'view_item' => _x( 'View Task', 'nervetask' ),
+			'search_items' => _x( 'Search Tasks', 'nervetask' ),
+			'not_found' => _x( 'No tasks found', 'nervetask' ),
+			'not_found_in_trash' => _x( 'No tasks found in Trash', 'nervetask' ),
+			'parent_item_colon' => _x( 'Parent task:', 'nervetask' ),
+			'menu_name' => _x( 'Tasks', 'nervetask' ),
+		);
+		$task_args = array(
+			'labels' => $task_labels,
+			'hierarchical' => true,
+			'supports' => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'custom-fields', 'comments', 'revisions', 'page-attributes', 'discussion' ),
+			'taxonomies' => array( 'category', 'post_tag', 'nervetask_status', 'nervetask_priority' ),
+			'public' => true,
+			'show_ui' => true,
+			'show_in_menu' => true,
+			'menu_position' => 5,
+			'show_in_nav_menus' => true,
+			'publicly_queryable' => true,
+			'exclude_from_search' => false,
+			'has_archive' => true,
+			'query_var' => true,
+			'can_export' => true,
+			'rewrite' => array(
+				'slug' => 'tasks'
+			),
+			'capability_type' => 'post'
+		);
+
+		register_post_type( 'nervetask', $task_args );
+
+		$status_labels = array(
+			'name' => _x( 'Statuses', 'nervetask' ),
+			'singular_name' => _x( 'Status', 'nervetask' ),
+			'search_items' => _x( 'Search Statuses', 'nervetask' ),
+			'popular_items' => _x( 'Popular Statuses', 'nervetask' ),
+			'all_items' => _x( 'All Statuses', 'nervetask' ),
+			'parent_item' => _x( 'Parent Status', 'nervetask' ),
+			'parent_item_colon' => _x( 'Parent Status:', 'nervetask' ),
+			'edit_item' => _x( 'Edit Status', 'nervetask' ),
+			'update_item' => _x( 'Update Status', 'nervetask' ),
+			'add_new_item' => _x( 'Add New Status', 'nervetask' ),
+			'new_item_name' => _x( 'New Status', 'nervetask' ),
+			'separate_items_with_commas' => _x( 'Separate statuses with commas', 'nervetask' ),
+			'add_or_remove_items' => _x( 'Add or remove statuses', 'nervetask' ),
+			'choose_from_most_used' => _x( 'Choose from the most used statuses', 'nervetask' ),
+			'menu_name' => _x( 'Statuses', 'nervetask' ),
+		);
+
+		$status_args = array(
+			'labels' => $status_labels,
+			'public' => true,
+			'show_in_nav_menus' => true,
+			'show_ui' => true,
+			'show_tagcloud' => true,
+			'hierarchical' => true,
+			'rewrite' => array(
+				'slug' => 'statuses',
+				'with_front' => true,
+				'hierarchical' => true
+			),
+			'query_var' => true
+		);
+
+		$priority_labels = array(
+			'name' => _x( 'Priorities', 'nervetask' ),
+			'singular_name' => _x( 'Priority', 'nervetask' ),
+			'search_items' => _x( 'Search Priorities', 'nervetask' ),
+			'popular_items' => _x( 'Popular Priorities', 'nervetask' ),
+			'all_items' => _x( 'All Priorities', 'nervetask' ),
+			'parent_item' => _x( 'Parent Priority', 'nervetask' ),
+			'parent_item_colon' => _x( 'Parent Priority:', 'nervetask' ),
+			'edit_item' => _x( 'Edit Priority', 'nervetask' ),
+			'update_item' => _x( 'Update Priority', 'nervetask' ),
+			'add_new_item' => _x( 'Add New Priority', 'nervetask' ),
+			'new_item_name' => _x( 'New Priority', 'nervetask' ),
+			'separate_items_with_commas' => _x( 'Separate priorities with commas', 'nervetask' ),
+			'add_or_remove_items' => _x( 'Add or remove priorities', 'nervetask' ),
+			'choose_from_most_used' => _x( 'Choose from the most used priorities', 'nervetask' ),
+			'menu_name' => _x( 'Priorities', 'nervetask' ),
+		);
+
+		$priority_args = array(
+			'labels' => $priority_labels,
+			'public' => true,
+			'show_in_nav_menus' => true,
+			'show_ui' => true,
+			'show_tagcloud' => true,
+			'hierarchical' => true,
+			'rewrite' => array(
+				'slug' => 'priority',
+				'with_front' => true,
+				'hierarchical' => true
+			),
+			'query_var' => true
+		);
+
+		register_taxonomy( 'nervetask_status',		array( 'nervetask' ), $status_args );
+		register_taxonomy( 'nervetask_priority',	array( 'nervetask' ), $priority_args );
+
+		if( function_exists( 'p2p_register_connection_type' ) ) {
+
+			p2p_register_connection_type(
+				array(
+				  'name'	=> 'nervetask_to_user',
+				  'from'	=> 'nervetask',
+				  'to'		=> 'user'
+				)
+			);
+		}
 	}
 
 	/**
