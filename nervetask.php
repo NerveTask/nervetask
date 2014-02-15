@@ -30,6 +30,8 @@ if ( ! defined( 'WPINC' ) ) {
  *----------------------------------------------------------------------------*/
 
 require_once( plugin_dir_path( __FILE__ ) . 'public/class-nervetask.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'public/includes/class-task.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'public/includes/shortcodes.php' );
 
 /*
  * Register hooks that are fired when the plugin is activated or deactivated.
@@ -39,6 +41,7 @@ register_activation_hook( __FILE__, array( 'NerveTask', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'NerveTask', 'deactivate' ) );
 
 add_action( 'plugins_loaded', array( 'NerveTask', 'get_instance' ) );
+add_action( 'plugins_loaded', array( 'NerveTask_Task', 'get_instance' ) );
 
 /*----------------------------------------------------------------------------*
  * Dashboard and Administrative Functionality

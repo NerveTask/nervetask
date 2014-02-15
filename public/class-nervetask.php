@@ -9,6 +9,8 @@
  * @copyright 2014 NerveTask
  */
 
+add_action( 'plugins_loaded', array( 'NerveTask_Task', 'get_instance' ) );
+
 /**
  * @package NerveTask
  * @author  Patrick Daly <patrick@developdaly.com>
@@ -18,11 +20,11 @@ class NerveTask {
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
 	 *
-	 * @since   0.0.1
+	 * @since   0.1.0
 	 *
 	 * @var     string
 	 */
-	const VERSION = '0.0.1';
+	const VERSION = '0.1.0';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -264,6 +266,9 @@ class NerveTask {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( 'jquery' ), self::VERSION );
+		wp_localize_script( $this->plugin_slug . '-plugin-script', 'nervetask', array(
+			'ajaxurl'	=> admin_url( 'admin-ajax.php' )
+		) );
 	}
 
 	/**
