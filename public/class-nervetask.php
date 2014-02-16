@@ -70,6 +70,9 @@ class NerveTask {
 		// Register post types and taxonomies
 		add_action( 'init', array( $this, 'register' ) );
 
+		// Inser the updates modal into the footer
+		add_action( 'wp_footer', array( $this, 'modal_updates' ) );
+
 	}
 
 	/**
@@ -290,7 +293,7 @@ class NerveTask {
 			'not_found' => _x( 'No tasks found', 'nervetask' ),
 			'not_found_in_trash' => _x( 'No tasks found in Trash', 'nervetask' ),
 			'parent_item_colon' => _x( 'Parent task:', 'nervetask' ),
-			'menu_name' => _x( 'Tasks', 'nervetask' ),
+			'menu_name' => _x( 'Tasks', 'nervetask' )
 		);
 		$task_args = array(
 			'labels' => $task_labels,
@@ -330,7 +333,7 @@ class NerveTask {
 			'separate_items_with_commas' => _x( 'Separate statuses with commas', 'nervetask' ),
 			'add_or_remove_items' => _x( 'Add or remove statuses', 'nervetask' ),
 			'choose_from_most_used' => _x( 'Choose from the most used statuses', 'nervetask' ),
-			'menu_name' => _x( 'Statuses', 'nervetask' ),
+			'menu_name' => _x( 'Statuses', 'nervetask' )
 		);
 
 		$status_args = array(
@@ -339,11 +342,11 @@ class NerveTask {
 			'show_in_nav_menus' => true,
 			'show_ui' => true,
 			'show_tagcloud' => true,
-			'hierarchical' => true,
+			'hierarchical' => false,
 			'rewrite' => array(
 				'slug' => 'statuses',
 				'with_front' => true,
-				'hierarchical' => true
+				'hierarchical' => false
 			),
 			'query_var' => true
 		);
@@ -363,7 +366,7 @@ class NerveTask {
 			'separate_items_with_commas' => _x( 'Separate priorities with commas', 'nervetask' ),
 			'add_or_remove_items' => _x( 'Add or remove priorities', 'nervetask' ),
 			'choose_from_most_used' => _x( 'Choose from the most used priorities', 'nervetask' ),
-			'menu_name' => _x( 'Priorities', 'nervetask' ),
+			'menu_name' => _x( 'Priorities', 'nervetask' )
 		);
 
 		$priority_args = array(
@@ -372,11 +375,11 @@ class NerveTask {
 			'show_in_nav_menus' => true,
 			'show_ui' => true,
 			'show_tagcloud' => true,
-			'hierarchical' => true,
+			'hierarchical' => false,
 			'rewrite' => array(
 				'slug' => 'priority',
 				'with_front' => true,
-				'hierarchical' => true
+				'hierarchical' => false
 			),
 			'query_var' => true
 		);
@@ -394,6 +397,10 @@ class NerveTask {
 				)
 			);
 		}
+	}
+
+	public function modal_updates() {
+		require_once( plugin_dir_path( __FILE__ ) . 'views/modal-updates.php' );
 	}
 
 	/**

@@ -1,35 +1,31 @@
-<form class="nervetask-new-task" method="post">
+<form class="nervetask-new-task form-horizontal" role="form" method="post">
 
-	<div>
-		<label for="nervetask-new-task-title">
-			Title
+	<?php if( !isset( $atts['title'] ) || ( $atts['title'] == 'true' ) ) { ?>
+
+	<div class="control-group">
+		<label class="control-label" for="nervetask-new-task-title">Title</label>
+		<div class="controls">
 			<input type="text" id="nervetask-new-task-title" name="nervetask-new-task-title" placeholder="Title of this task">
-		</label>
+		</div>
 	</div>
 
-	<div>
-		<label for="nervetask-new-task-content">
-			Description
+	<?php } ?>
+
+	<?php if( !isset( $atts['content'] ) || ( $atts['title'] == 'true' ) ) { ?>
+
+	<div class="control-group">
+		<label class="control-label" for="nervetask-new-task-content">Content</label>
+		<div class="controls">
 			<textarea id="nervetask-new-task-content" name="nervetask-new-task-content"></textarea>
-		</label>
+		</div>
 	</div>
 
-	<div>
-		<label for="nervetask-new-task-category">
-			Categories
+	<?php } ?>
 
-		</label>
-	</div>
-
-	<div>
-		<label for="nervetask-new-task-assignees">
-			Assignees
-
-		</label>
-	</div>
-
-	<div>
-		<button type="submit">Create Task</button>
+	<div class="control-group">
+		<div class="controls">
+			<button type="submit" class="btn">Create Task</button>
+		</div>
 	</div>
 
 	<input type="hidden" name="action" value="nervetask_new_task">

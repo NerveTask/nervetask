@@ -2,8 +2,8 @@
 
 function nervetask_shortcode_new_task( $atts ) {
 	extract( shortcode_atts( array(
-		'foo' => 'something',
-		'bar' => 'something else',
+		'title'		=> true,
+		'content'	=> true
 	), $atts ) );
 
 	ob_start();

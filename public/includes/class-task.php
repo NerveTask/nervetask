@@ -92,6 +92,10 @@ class NerveTask_Task {
 
 			$post_id = wp_insert_post( $args );
 
+			// TODO: Retrieve default status and priority from options
+			wp_set_post_terms( $post_id, array( 'new' ), 'nervetask_status' );
+			wp_set_post_terms( $post_id, array( 'normal' ), 'nervetask_priority' );
+
 			// If this is an ajax request
 			if ( defined('DOING_AJAX') && DOING_AJAX ) {
 
