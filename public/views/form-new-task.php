@@ -2,28 +2,28 @@
 
 	<?php if( !isset( $atts['title'] ) || ( $atts['title'] == 'true' ) ) { ?>
 
-	<div class="control-group">
-		<label class="control-label" for="nervetask-new-task-title">Title</label>
-		<div class="controls">
-			<input type="text" id="nervetask-new-task-title" name="nervetask-new-task-title" placeholder="Title of this task">
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="nervetask-new-task-title">Title</label>
+		<div class="control-input col-sm-10">
+			<input type="text" class="form-control" id="nervetask-new-task-title" name="nervetask-new-task-title" placeholder="New task title...">
 		</div>
 	</div>
 
 	<?php } ?>
 
-	<?php if( !isset( $atts['content'] ) || ( $atts['title'] == 'true' ) ) { ?>
+	<?php if( !isset( $atts['content'] ) || ( $atts['content'] == 'true' ) ) { ?>
 
-	<div class="control-group">
-		<label class="control-label" for="nervetask-new-task-content">Content</label>
-		<div class="controls">
-			<textarea id="nervetask-new-task-content" name="nervetask-new-task-content"></textarea>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="nervetask-new-task-content">Content</label>
+		<div class="control-input col-sm-10">
+			<textarea class="form-control" id="nervetask-new-task-content" name="nervetask-new-task-content"></textarea>
 		</div>
 	</div>
 
 	<?php } ?>
 
-	<div class="control-group">
-		<div class="controls">
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
 			<button type="submit" class="btn">Create Task</button>
 		</div>
 	</div>
