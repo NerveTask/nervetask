@@ -70,8 +70,9 @@ class NerveTask {
 		// Register post types and taxonomies
 		add_action( 'init', array( $this, 'register' ) );
 
-		// Inser the updates modal into the footer
-		add_action( 'wp_footer', array( $this, 'modal_updates' ) );
+		// Add NerveTask slugs to the the body and post classes
+		add_filter( 'post_class', array( $this, 'body_class' ) );
+		add_filter( 'body_class', array( $this, 'body_class' ) );
 
 	}
 
@@ -399,10 +400,6 @@ class NerveTask {
 		}
 	}
 
-	public function modal_updates() {
-		require_once( plugin_dir_path( __FILE__ ) . 'views/modal-updates.php' );
-	}
-
 	/**
 	 * NOTE:  Actions are points in the execution of a page or process
 	 *        lifecycle that WordPress fires.
@@ -427,6 +424,27 @@ class NerveTask {
 	 */
 	public function filter_method_name() {
 		// @TODO: Define your filter hook callback here
+	}
+
+	public function body_class( $classes ) {
+		global $post;
+
+		$statuses = get_the_terms($post -> ID, 'nervetask_status');
+		if( $statuses ) {
+			foreach( $statuses as $status) {
+				$classes[] = 'status-'. $status->slug;
+			}
+		}
+
+		$priorities = get_the_terms($post -> ID, 'nervetask_priority');
+		if( $priorities ) {
+			foreach( $priorities as $priority) {
+				$classes[] = 'priority-'. $priority->slug;
+			}
+		}
+
+		return $classes;
+
 	}
 
 }
