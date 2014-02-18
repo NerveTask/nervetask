@@ -385,8 +385,42 @@ class NerveTask {
 			'query_var' => true
 		);
 
+		$category_labels = array(
+			'name' => _x( 'Task Categories', 'nervetask' ),
+			'singular_name' => _x( 'Task Category', 'nervetask' ),
+			'search_items' => _x( 'Search Task Categories', 'nervetask' ),
+			'popular_items' => _x( 'Popular Task Categories', 'nervetask' ),
+			'all_items' => _x( 'All Task Categories', 'nervetask' ),
+			'parent_item' => _x( 'Parent Task Category', 'nervetask' ),
+			'parent_item_colon' => _x( 'Parent Task Category:', 'nervetask' ),
+			'edit_item' => _x( 'Edit Task Category', 'nervetask' ),
+			'update_item' => _x( 'Update Task Category', 'nervetask' ),
+			'add_new_item' => _x( 'Add New Task Category', 'nervetask' ),
+			'new_item_name' => _x( 'New Task Category', 'nervetask' ),
+			'separate_items_with_commas' => _x( 'Separate task categories with commas', 'nervetask' ),
+			'add_or_remove_items' => _x( 'Add or remove task categories', 'nervetask' ),
+			'choose_from_most_used' => _x( 'Choose from the most used task categories', 'nervetask' ),
+			'menu_name' => _x( 'Task Categories', 'nervetask' )
+		);
+
+		$category_args = array(
+			'labels' => $category_labels,
+			'public' => true,
+			'show_in_nav_menus' => true,
+			'show_ui' => true,
+			'show_tagcloud' => true,
+			'hierarchical' => false,
+			'rewrite' => array(
+				'slug' => 'category',
+				'with_front' => true,
+				'hierarchical' => false
+			),
+			'query_var' => true
+		);
+
 		register_taxonomy( 'nervetask_status',		array( 'nervetask' ), $status_args );
 		register_taxonomy( 'nervetask_priority',	array( 'nervetask' ), $priority_args );
+		register_taxonomy( 'nervetask_category',	array( 'nervetask' ), $category_args );
 
 		if( function_exists( 'p2p_register_connection_type' ) ) {
 
