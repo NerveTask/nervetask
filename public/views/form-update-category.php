@@ -7,10 +7,10 @@
 <form class="nervetask-update-category form-horizontal" role="form" method="post">
 
 	<div>
+		<?php if( current_user_can( 'edit_posts' ) ) { ?>
+			<a type="button" data-toggle="collapse" data-target="#task-meta-category-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
+		<?php } ?>
 		<?php if ( ! empty( $assigned_categories ) ) { ?>
-			<?php if( current_user_can( 'edit_posts' ) ) { ?>
-				<a type="button" data-toggle="collapse" data-target="#task-meta-category-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
-			<?php } ?>
 			<strong>Category:
 			<span class="task-category">
 			<?php foreach ( $assigned_categories as $category ) { $category = get_term_by( 'id', $category, 'nervetask_category' );  ?>
@@ -19,7 +19,7 @@
 			</span>
 			</strong>
 		<?php } else { ?>
-			<p>There is no assigned category</p>
+			<span class="task-category">There is no assigned category</span>
 		<?php } ?>
 	</div>
 

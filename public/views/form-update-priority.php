@@ -7,10 +7,10 @@
 <form class="nervetask-update-priority form-horizontal" role="form" method="post">
 
 	<div>
+		<?php if( current_user_can( 'edit_posts' ) ) { ?>
+			<a type="button" data-toggle="collapse" data-target="#task-meta-priority-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
+		<?php } ?>
 		<?php if ( ! empty( $assigned_priorities ) ) { ?>
-			<?php if( current_user_can( 'edit_posts' ) ) { ?>
-				<a type="button" data-toggle="collapse" data-target="#task-meta-priority-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
-			<?php } ?>
 			<strong>Priority:
 			<span class="task-priority">
 			<?php foreach ( $assigned_priorities as $priority ) { $priority = get_term_by( 'id', $priority, 'nervetask_priority' );  ?>
@@ -19,7 +19,7 @@
 			</span>
 			</strong>
 		<?php } else { ?>
-			<p>There are no assigned priority</p>
+			<span class="task-priority">There is no assigned priority</span>
 		<?php } ?>
 	</div>
 

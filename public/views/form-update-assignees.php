@@ -23,10 +23,10 @@
 <form class="nervetask-update-assignees form-horizontal" role="form" method="post">
 
 	<div>
+		<?php if( current_user_can( 'edit_posts' ) ) { ?>
+			<a type="button" data-toggle="collapse" data-target="#task-meta-assignees-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
+		<?php } ?>
 		<?php if ( ! empty( $assigned_user_query->results ) ) { ?>
-			<?php if( current_user_can( 'edit_posts' ) ) { ?>
-				<a type="button" data-toggle="collapse" data-target="#task-meta-assignees-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
-			<?php } ?>
 			<strong>Assigned to:
 			<span class="assigned">
 			<?php foreach ( $assigned_user_query->results as $user ) { $user = get_user_by( 'id', $user ); ?>
@@ -35,7 +35,7 @@
 			</span>
 			</strong>
 		<?php } else { ?>
-			<p>There are no assigned users</p>
+			<span class="assigned">There is no assigned user</span>
 		<?php } ?>
 	</div>
 
