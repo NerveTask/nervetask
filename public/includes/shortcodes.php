@@ -39,3 +39,10 @@ function nervetask_shortcode_update_category() {
 	return ob_get_clean();
 }
 add_shortcode( 'nervetask_update_category', 'nervetask_shortcode_update_category' );
+
+function nervetask_shortcode_update_content() {
+	ob_start();
+	require_once( plugin_dir_path( __FILE__ ) . '../views/form-update-content.php' );
+	return ob_get_clean();
+}
+add_shortcode( 'nervetask_update_content', 'nervetask_shortcode_update_content' );

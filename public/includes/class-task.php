@@ -36,6 +36,12 @@ class NerveTask_Task {
 			add_action( 'wp_ajax_nopriv_nervetask_new_task',		array( $this, 'insert' ) );
 			add_action( 'wp_ajax_nervetask_new_task',				array( $this, 'insert' ) );
 
+			add_action( 'wp_ajax_nopriv_nervetask_update_content',	array( $this, 'update_content' ) );
+			add_action( 'wp_ajax_nervetask_update_content',			array( $this, 'update_content' ) );
+
+			add_action( 'wp_ajax_nopriv_nervetask_insert_comment',	array( $this, 'insert_comment' ) );
+			add_action( 'wp_ajax_nervetask_insert_comment',			array( $this, 'insert_comment' ) );
+
 			add_action( 'wp_ajax_nopriv_nervetask_update_assignees',array( $this, 'update_assignees' ) );
 			add_action( 'wp_ajax_nervetask_update_assignees',		array( $this, 'update_assignees' ) );
 
@@ -49,6 +55,8 @@ class NerveTask_Task {
 			add_action( 'wp_ajax_nervetask_update_category',		array( $this, 'update_category' ) );
 		} else {
 			add_action( 'init',	array( $this, 'insert' ) );
+			add_action( 'init',	array( $this, 'update_content' ) );
+			add_action( 'init',	array( $this, 'insert_comment' ) );
 			add_action( 'init',	array( $this, 'update_assignees' ) );
 			add_action( 'init',	array( $this, 'update_status' ) );
 			add_action( 'init',	array( $this, 'update_priority' ) );
@@ -134,6 +142,142 @@ class NerveTask_Task {
 								'success' => true,
 								'message' => __('Success!'),
 								'post' => $post
+							)
+						)
+					);
+				} else {
+					die(
+						json_encode(
+							array(
+								'success' => false,
+								'message' => __('An error occured. Please refresh the page and try again.')
+							)
+						)
+					);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Updates a task's content.
+	 *
+	 * First checks if the task is being added through a regular $_POST and
+	 * performs a standard page refresh.
+	 *
+	 * If an ajax referrer is set and valid then proceed instead by dying
+	 * and returning a response for the client.
+	 *
+	 * @since    0.1.0
+	 */
+	public function update_content() {
+
+		// If the current user can't publish posts stop
+		if ( !current_user_can('edit_posts') ) {
+			return;
+		}
+
+		if ( ( defined('DOING_AJAX') && DOING_AJAX ) || !empty( $_POST['nervetask_update_content'] ) ) {
+
+			$_POST = maybe_unserialize( $_POST );
+			$post_id	= $_POST['post_id'];
+			if( isset( $_POST['nervetask-new-task-content'] ) ) {
+				$post_content = $_POST['nervetask-new-task-content'];
+			} else {
+				$post_content = '';
+			}
+
+			$args = array(
+				'ID'			=> $post_id,
+				'post_content'  => $post_content
+			);
+
+			$post_id = wp_update_post( $args );
+
+			// If this is an ajax request
+			if ( defined('DOING_AJAX') && DOING_AJAX ) {
+
+				// If the post inserted succesffully
+				if ( $post_id != 0 ) {
+
+					$post = get_post( $post_id );
+
+					die(
+						json_encode(
+							array(
+								'success' => true,
+								'message' => __('Success!'),
+								'post' => $post
+							)
+						)
+					);
+				} else {
+					die(
+						json_encode(
+							array(
+								'success' => false,
+								'message' => __('An error occured. Please refresh the page and try again.')
+							)
+						)
+					);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Inserts a new comment.
+	 *
+	 * First checks if the task is being added through a regular $_POST and
+	 * performs a standard page refresh.
+	 *
+	 * If an ajax referrer is set and valid then proceed instead by dying
+	 * and returning a response for the client.
+	 *
+	 * @since    0.1.0
+	 */
+	public function insert_comment() {
+
+		// If the current user can't publish posts stop
+		if ( !current_user_can('read') ) {
+			return;
+		}
+
+		if ( ( defined('DOING_AJAX') && DOING_AJAX ) || !empty( $_POST['nervetask_insert_comment'] ) ) {
+
+			$_POST = maybe_unserialize( $_POST );
+			if( isset( $_POST['post_id'] ) ) {
+				$comment_post_id = $_POST['post_id'];
+			} else {
+				return;
+			}
+			if( isset( $_POST['nervetask-new-comment-content'] ) ) {
+				$comment_content = $_POST['nervetask-new-comment-content'];
+			} else {
+				$comment_content = '';
+			}
+
+			$args = array(
+				'comment_post_ID'	=> $comment_post_id,
+				'comment_content'	=> $comment_content
+			);
+
+			$comment_id = wp_insert_comment ( $args );
+
+			// If this is an ajax request
+			if ( defined('DOING_AJAX') && DOING_AJAX ) {
+
+				// If the post inserted succesffully
+				if ( $comment_id != 0 ) {
+
+					$comment = get_comment( $comment_id );
+
+					die(
+						json_encode(
+							array(
+								'success' => true,
+								'message' => __('Success!'),
+								'comment' => $comment
 							)
 						)
 					);
