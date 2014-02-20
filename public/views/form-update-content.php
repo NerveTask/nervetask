@@ -22,7 +22,8 @@
 
 	</div>
 
-	<input type="hidden" name="action" value="nervetask_update_content">
+	<input type="hidden" name="action" value="nervetask">
+	<input type="hidden" name="controller" value="nervetask_update_content">
 	<input type="hidden" name="post_id" value="<?php the_ID(); ?>">
 	<input type="hidden" name="security" value="<?php echo wp_create_nonce( 'nervetask_update_content' ); ?>">
 

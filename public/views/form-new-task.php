@@ -28,7 +28,8 @@
 		</div>
 	</div>
 
-	<input type="hidden" name="action" value="nervetask_new_task">
+	<input type="hidden" name="action" value="nervetask">
+	<input type="hidden" name="controller" value="nervetask_new_task">
 	<input type="hidden" name="security" value="<?php echo wp_create_nonce( 'nervetask_new_task' ); ?>">
 
 </form>
