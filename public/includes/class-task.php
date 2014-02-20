@@ -73,6 +73,10 @@ class NerveTask_Task {
 
 		if ( !empty( $_POST ) || ( defined('DOING_AJAX') && DOING_AJAX ) ) {
 
+			if( $_POST['action'] != 'nervetask' ) {
+				return;
+			}
+
 			if( $_POST['controller'] == 'nervetask_new_task' ) {
 				$result = self::new_task($_POST);
 			}
@@ -154,9 +158,43 @@ class NerveTask_Task {
 		// Insert the new task and get its ID
 		$post_id = wp_insert_post( $args );
 
-		// TODO: Retrieve default status and priority from options
-		wp_set_post_terms( $post_id, array( 'new' ),	'nervetask_status' );
-		wp_set_post_terms( $post_id, array( 'normal' ),	'nervetask_priority' );
+		// TODO: Retrieve default status, priority, etc. from stored options
+		if( isset( $data['nervetask_category'] ) ) {
+
+			// Convert array values from strings to integers
+			$categories = $data['nervetask_category'];
+			$categories = array_map(
+				create_function('$value', 'return (int)$value;'),
+				$categories
+			);
+			wp_set_post_terms( $post_id, $categories, 'nervetask_category' );
+		}
+
+		// Set the user's priority or the default if not sent
+		if( isset( $data['nervetask_priority'] ) ) {
+			// Convert array values from strings to integers
+			$priorities = $data['nervetask_priority'];
+			$priorities = array_map(
+				create_function('$value', 'return (int)$value;'),
+				$priorities
+			);
+			wp_set_post_terms( $post_id, $priorities,	'nervetask_priority' );
+		} else {
+			wp_set_post_terms( $post_id, array( 'normal' ), 'nervetask_priority' );
+		}
+
+		// Set the user's status or the default if not sent
+		if( isset( $data['nervetask_status'] ) ) {
+			// Convert array values from strings to integers
+			$statuses = $data['nervetask_status'];
+			$statuses = array_map(
+				create_function('$value', 'return (int)$value;'),
+				$statuses
+			);
+			wp_set_post_terms( $post_id, $statuses,	'nervetask_status' );
+		} else {
+			wp_set_post_terms( $post_id, array( 'new' ), 'nervetask_status' );
+		}
 
 		// If the task inserted succesffully
 		if ( $post_id != 0 ) {

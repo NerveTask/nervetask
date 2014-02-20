@@ -46,8 +46,7 @@
 			.done(function( response ) {
 				if ( response ) {
 					try {
-
-
+						resetForm($(data));
 					} catch ( err ) {
 
 					}
@@ -57,7 +56,6 @@
 
 			})
 			.always(function( response ) {
-				console.log(response);
 
 				if( triggerType ) {
 					$.event.trigger({
@@ -95,8 +93,6 @@
 
 		function nervetaskCommentAjax(data, event) {
 
-			console.log(data);
-
 			var xhr;
 
 			if ( xhr ) {
@@ -124,7 +120,6 @@
 
 			})
 			.always(function( response ) {
-				console.log(response);
 			});
 
 			event.preventDefault();
@@ -132,7 +127,6 @@
 		}
 
 		function nervetaskComment( data ) {
-			console.log('comment');
 
 			var output;
 			ouput = '<li>comment</li>';
@@ -140,6 +134,10 @@
 
 		}
 
+		function resetForm($form) {
+			$form.find('input:text, input:password, input:file, select, textarea').val('');
+			$form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+		}
 
 	});
 

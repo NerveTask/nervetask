@@ -3,7 +3,10 @@
 function nervetask_shortcode_new_task( $atts ) {
 	extract( shortcode_atts( array(
 		'title'		=> true,
-		'content'	=> true
+		'content'	=> true,
+		'category'	=> false,
+		'priority'	=> false,
+		'users'		=> false
 	), $atts ) );
 
 	ob_start();

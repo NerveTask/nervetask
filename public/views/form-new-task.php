@@ -22,6 +22,60 @@
 
 	<?php } ?>
 
+	<?php if( !isset( $atts['category'] ) || ( $atts['category'] == 'true' ) ) { ?>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="nervetask-new-task-category">Categories</label>
+		<div class="control-input col-sm-10">
+			<select multiple="multiple" size="11" name="nervetask_category[]" class="">
+
+			<?php
+				$categories = get_terms( 'nervetask_category', array( 'hide_empty' => 0, 'orderby' => 'slug' ) );
+				foreach ( $categories as $category ) { ?>
+				<option value ="<?php echo $category->term_id; ?>"><?php echo $category->name; ?></option>
+			<?php } ?>
+			</select>
+		</div>
+	</div>
+
+	<?php } ?>
+
+	<?php if( !isset( $atts['priority'] ) || ( $atts['priority'] == 'true' ) ) { ?>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="nervetask-new-task-priority">Priority</label>
+		<div class="control-input col-sm-10">
+			<select multiple="multiple" size="11" name="nervetask_priority[]" class="">
+
+			<?php
+				$priorities = get_terms( 'nervetask_priority', array( 'hide_empty' => 0, 'orderby' => 'slug' ) );
+				foreach ( $priorities as $priority ) { ?>
+				<option value ="<?php echo $priority->term_id; ?>"><?php echo $priority->name; ?></option>
+			<?php } ?>
+			</select>
+		</div>
+	</div>
+
+	<?php } ?>
+
+	<?php if( !isset( $atts['status'] ) || ( $atts['status'] == 'true' ) ) { ?>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="nervetask-new-task-status">Status</label>
+		<div class="control-input col-sm-10">
+			<select multiple="multiple" size="11" name="nervetask_status[]" class="">
+
+			<?php
+				$statuses = get_terms( 'nervetask_status', array( 'hide_empty' => 0, 'orderby' => 'slug' ) );
+				foreach ( $statuses as $status ) { ?>
+				<option value ="<?php echo $status->term_id; ?>"><?php echo $status->name; ?></option>
+			<?php } ?>
+			</select>
+		</div>
+	</div>
+
+	<?php } ?>
+
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
 			<button type="submit" class="btn">Create Task</button>
