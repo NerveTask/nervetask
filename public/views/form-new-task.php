@@ -22,7 +22,7 @@
 
 	<?php } ?>
 
-	<?php if( !isset( $atts['category'] ) || ( $atts['category'] == 'true' ) ) { ?>
+	<?php if( isset( $atts['category']) && $atts['category'] == 'true' ) { ?>
 
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="nervetask-new-task-category">Categories</label>
@@ -40,7 +40,7 @@
 
 	<?php } ?>
 
-	<?php if( !isset( $atts['priority'] ) || ( $atts['priority'] == 'true' ) ) { ?>
+	<?php if( isset( $atts['priority']) &&  $atts['priority'] == 'true' ) { ?>
 
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="nervetask-new-task-priority">Priority</label>
@@ -58,7 +58,7 @@
 
 	<?php } ?>
 
-	<?php if( !isset( $atts['status'] ) || ( $atts['status'] == 'true' ) ) { ?>
+	<?php if( isset( $atts['status']) &&  $atts['status'] == 'true' ) { ?>
 
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="nervetask-new-task-status">Status</label>
