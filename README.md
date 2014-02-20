@@ -6,9 +6,9 @@ Other WordPress project management solutions exist by bundling plugin features i
 
 ## Contributing
 
-Get involved in the **planning, discussion, and road-mapping** by participating in the **[NerveTask Plugin Trello Board](trello)**.
+Get involved in the **planning, discussion, and road-mapping** by participating in the **[NerveTask Plugin Trello Board]**.
 
 Or fork the repository and submit pull requests!
 
 [control]: https://github.com/NerveTask/control
-[trello]: https://trello.com/b/sV78jSZh/nervetask
+[NerveTask Plugin Trello Board]: https://trello.com/b/sV78jSZh/nervetask
