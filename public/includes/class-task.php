@@ -36,7 +36,7 @@ class NerveTask_Task {
 			add_action( 'wp_ajax_nopriv_nervetask',	array( $this, 'go' ) );
 			add_action( 'wp_ajax_nervetask',		array( $this, 'go' ) );
 		} else {
-			add_action( 'init',	array( $this, 'go' ) );
+			add_action( 'init',	array( $this, 'go' ), 11 );
 		}
 	}
 
@@ -180,7 +180,7 @@ class NerveTask_Task {
 			);
 			wp_set_post_terms( $post_id, $priorities,	'nervetask_priority' );
 		} else {
-			wp_set_post_terms( $post_id, array( 'normal' ), 'nervetask_priority' );
+			wp_set_post_terms( $post_id, 'normal', 'nervetask_priority' );
 		}
 
 		// Set the user's status or the default if not sent
@@ -193,7 +193,7 @@ class NerveTask_Task {
 			);
 			wp_set_post_terms( $post_id, $statuses,	'nervetask_status' );
 		} else {
-			wp_set_post_terms( $post_id, array( 'new' ), 'nervetask_status' );
+			wp_set_post_terms( $post_id, 'new', 'nervetask_status' );
 		}
 
 		// If the task inserted succesffully
