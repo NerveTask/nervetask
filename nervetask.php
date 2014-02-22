@@ -31,6 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 require_once( plugin_dir_path( __FILE__ ) . 'public/class-nervetask.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'public/includes/class-task.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'public/includes/class-widgets.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'public/includes/shortcodes.php' );
 
 /*

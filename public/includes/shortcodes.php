@@ -10,7 +10,7 @@ function nervetask_shortcode_new_task( $atts ) {
 	), $atts ) );
 
 	ob_start();
-	require_once( plugin_dir_path( __FILE__ ) . '../views/form-new-task.php' );
+	nervetask_new_task_form( $atts );
 	return ob_get_clean();
 }
 add_shortcode( 'nervetask_new_task', 'nervetask_shortcode_new_task' );
@@ -49,3 +49,7 @@ function nervetask_shortcode_update_content() {
 	return ob_get_clean();
 }
 add_shortcode( 'nervetask_update_content', 'nervetask_shortcode_update_content' );
+
+function nervetask_new_task_form( $atts ) {
+	require_once( plugin_dir_path( __FILE__ ) . '../views/form-new-task.php' );
+}
