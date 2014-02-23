@@ -4,7 +4,7 @@ NerveTask is a free, open-source, standalone plugin that has basic project manag
 
 Other WordPress project management solutions exist by bundling plugin features into themes, rendering project management useless if you want to switch themes. Further, plugins exist that provide project management features but don't thoroughly provide the interface necessary to make project management efficient and fun.
 
-## Why NerveTask instead of the hundreds of other task management options?
+## NerveTask vs. XYZ?
 
 - Data portability
 - Data ownership
@@ -12,7 +12,7 @@ Other WordPress project management solutions exist by bundling plugin features i
 - Can be integrated into your existing website (project-management.youragency.com)
 - Open-source
 - WordPress is already used by many businesses
-- 
+
 ## Features
 
 - Tasks
