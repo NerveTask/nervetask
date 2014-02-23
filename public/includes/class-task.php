@@ -73,46 +73,45 @@ class NerveTask_Task {
 
 		if ( !empty( $_POST ) || ( defined('DOING_AJAX') && DOING_AJAX ) ) {
 
-			if( $_POST['action'] != 'nervetask' ) {
-				return;
-			}
+			if( isset( $_POST['action'] ) && $_POST['action'] == 'nervetask' ) {
 
-			if( $_POST['controller'] == 'nervetask_new_task' ) {
-				$result = self::new_task($_POST);
-			}
-			if( $_POST['controller'] == 'nervetask_update_content' ) {
-				$result = self::update_content($_POST);
-			}
-			if( $_POST['controller'] == 'nervetask_insert_comment' ) {
-				$result = self::insert_comment($_POST);
-			}
-			if( $_POST['controller'] == 'nervetask_update_assignees' ) {
-				$result = self::update_assignees($_POST);
-			}
-			if( $_POST['controller'] == 'nervetask_update_status' ) {
-				$result = self::update_status($_POST);
-			}
-			if( $_POST['controller'] == 'nervetask_update_priority' ) {
-				$result = self::update_priority($_POST);
-			}
-			if( $_POST['controller'] == 'nervetask_update_category' ) {
-				$result = self::update_category($_POST);
-			}
+				if( $_POST['controller'] == 'nervetask_new_task' ) {
+					$result = self::new_task($_POST);
+				}
+				if( $_POST['controller'] == 'nervetask_update_content' ) {
+					$result = self::update_content($_POST);
+				}
+				if( $_POST['controller'] == 'nervetask_insert_comment' ) {
+					$result = self::insert_comment($_POST);
+				}
+				if( $_POST['controller'] == 'nervetask_update_assignees' ) {
+					$result = self::update_assignees($_POST);
+				}
+				if( $_POST['controller'] == 'nervetask_update_status' ) {
+					$result = self::update_status($_POST);
+				}
+				if( $_POST['controller'] == 'nervetask_update_priority' ) {
+					$result = self::update_priority($_POST);
+				}
+				if( $_POST['controller'] == 'nervetask_update_category' ) {
+					$result = self::update_category($_POST);
+				}
 
-			// If this is an ajax request
-			if ( defined('DOING_AJAX') && DOING_AJAX ) {
+				// If this is an ajax request
+				if ( defined('DOING_AJAX') && DOING_AJAX ) {
 
-				if ( isset( $result ) ) {
-					die( json_encode( $result ) );
-				} else {
-					die(
-						json_encode(
-							array(
-								'success' => false,
-								'message' => __( 'An error occured. Please refresh the page and try again.' )
+					if ( isset( $result ) ) {
+						die( json_encode( $result ) );
+					} else {
+						die(
+							json_encode(
+								array(
+									'success' => false,
+									'message' => __( 'An error occured. Please refresh the page and try again.' )
+								)
 							)
-						)
-					);
+						);
+					}
 				}
 			}
 		}
