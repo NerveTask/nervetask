@@ -1,3 +1,5 @@
+<?php if( is_user_logged_in() ) { ?>
+
 <form class="nervetask-new-task form-horizontal" role="form" method="post">
 
 	<?php if( !isset( $atts['title'] ) || ( $atts['title'] == true ) ) { ?>
@@ -27,7 +29,7 @@
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="nervetask-new-task-category">Categories</label>
 		<div class="control-input col-sm-10">
-			<select multiple="multiple" size="11" name="nervetask_category[]" class="">
+			<select multiple="multiple" size="11" name="nervetask_category[]" class="form-control">
 
 			<?php
 				$categories = get_terms( 'nervetask_category', array( 'hide_empty' => 0, 'orderby' => 'slug' ) );
@@ -45,7 +47,7 @@
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="nervetask-new-task-priority">Priority</label>
 		<div class="control-input col-sm-10">
-			<select multiple="multiple" size="11" name="nervetask_priority[]" class="">
+			<select multiple="multiple" size="11" name="nervetask_priority[]" class="form-control">
 
 			<?php
 				$priorities = get_terms( 'nervetask_priority', array( 'hide_empty' => 0, 'orderby' => 'slug' ) );
@@ -63,7 +65,7 @@
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="nervetask-new-task-status">Status</label>
 		<div class="control-input col-sm-10">
-			<select multiple="multiple" size="11" name="nervetask_status[]" class="">
+			<select multiple="multiple" size="11" name="nervetask_status[]" class="form-control">
 
 			<?php
 				$statuses = get_terms( 'nervetask_status', array( 'hide_empty' => 0, 'orderby' => 'slug' ) );
@@ -87,3 +89,13 @@
 	<input type="hidden" name="security" value="<?php echo wp_create_nonce( 'nervetask_new_task' ); ?>">
 
 </form>
+
+<?php } else { ?>
+
+<div class="alert alert-warning">
+
+	You must be logged in to create new tasks.
+	
+</div>
+
+<?php } ?>
