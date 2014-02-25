@@ -463,6 +463,10 @@ class NerveTask {
 	public function body_class( $classes ) {
 		global $post;
 
+		if( !$post ) {
+			return;
+		}
+
 		$statuses = get_the_terms($post -> ID, 'nervetask_status');
 		if( $statuses ) {
 			foreach( $statuses as $status) {
