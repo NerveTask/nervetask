@@ -96,6 +96,9 @@ class NerveTask_Task {
 				if( $_POST['controller'] == 'nervetask_update_category' ) {
 					$result = self::update_category($_POST);
 				}
+				if( $_POST['controller'] == 'nervetask_update_due_date' ) {
+					$result = self::update_due_date($_POST);
+				}
 
 				// If this is an ajax request
 				if ( defined('DOING_AJAX') && DOING_AJAX ) {
@@ -193,6 +196,14 @@ class NerveTask_Task {
 			wp_set_post_terms( $post_id, $statuses,	'nervetask_status' );
 		} else {
 			wp_set_post_terms( $post_id, 'new', 'nervetask_status' );
+		}
+
+		// Set the user's status or the default if not sent
+		if( isset( $data['nervetask_due_date'] ) ) {
+			$due_date = $data['nervetask_due_date'];
+			update_post_meta( $post_id, 'due_date', $due_date );
+		} else {
+			// wp_set_post_terms( $post_id, 'new', 'nervetask_due_date' );
 		}
 
 		// If the task inserted succesffully
@@ -454,6 +465,7 @@ class NerveTask_Task {
 
 		return $output;
 	}
+
 	/**
 	 * Updates the category of a task.
 	 *
@@ -500,4 +512,46 @@ class NerveTask_Task {
 
 		return $output;
 	}
+
+	/**
+	 * Updates the category of a task.
+	 *
+	 * @since    0.1.0
+	 */
+	public function update_due_date( $data ) {
+
+		if( empty( $data ) ) {
+			return;
+		}
+
+		// If the current user can't edit posts stop
+		if ( !current_user_can('edit_posts') ) {
+			$output = 'You don\'t have proper permissions to update the due date of this task. :(';
+			return $output;
+		}
+
+		$due_date	= $data['due_date'];
+		$post_id	= $data['post_id'];
+
+		// Update the meta
+		$result = update_post_meta( $post_id, 'due_date', $due_date );
+
+		// If the meta saved successfully
+		if ( $result ) {
+
+			$due_date = get_post_meta( $post_id, 'due_date' );
+
+			$output = array(
+				'status'	=> 'success',
+				'message'	=> __('Success!'),
+				'due_date'		=> $due_date
+			);
+
+		} else {
+			$output = 'There was an error while creating a new task. Please refresh the page and try again.';
+		}
+
+		return $output;
+	}
+
 }
