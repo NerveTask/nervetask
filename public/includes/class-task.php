@@ -200,12 +200,7 @@ class NerveTask_Task {
 
 		// Set the user's status or the default if not sent
 		if( isset( $data['nervetask_due_date'] ) ) {
-			// Convert array values from strings to integers
 			$due_date = $data['nervetask_due_date'];
-			// $due_date = array_map(
-			// 	create_function('$value', 'return (int)$value;'),
-			// 	$due_date
-			// );
 			update_post_meta( $post_id, 'due_date', $due_date );
 		} else {
 			// wp_set_post_terms( $post_id, 'new', 'nervetask_due_date' );
@@ -538,19 +533,13 @@ class NerveTask_Task {
 		$due_date	= $data['due_date'];
 		$post_id	= $data['post_id'];
 
-		// Convert array values from strings to integers
-		// $category = array_map(
-		// 	create_function('$value', 'return (int)$value;'),
-		// 	$category
-		// );
+		// Update the meta
+		$result = update_post_meta( $post_id, 'due_date', $due_date );
 
-		// Update the terms
-		$result = update_post_meta( $post_id, 'nervetask_due_date', $due_date );
-
-		// If the category succesffully
+		// If the meta saved successfully
 		if ( $result ) {
 
-			$due_date = get_post_meta( $post_id, 'nervetask_due_date' );
+			$due_date = get_post_meta( $post_id, 'due_date' );
 
 			$output = array(
 				'status'	=> 'success',

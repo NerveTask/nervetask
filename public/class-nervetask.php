@@ -421,43 +421,9 @@ class NerveTask {
 			'query_var' => true
 		);
 
-		// $due_date_labels = array(
-		// 	'name' => _x( 'Task Due Dates', 'nervetask' ),
-		// 	'singular_name' => _x( 'Task Due Date', 'nervetask' ),
-		// 	'search_items' => _x( 'Search Task Due Dates', 'nervetask' ),
-		// 	'popular_items' => _x( 'Popular Task Due Dates', 'nervetask' ),
-		// 	'all_items' => _x( 'All Task Due Dates', 'nervetask' ),
-		// 	'parent_item' => _x( 'Parent Task Due Date', 'nervetask' ),
-		// 	'parent_item_colon' => _x( 'Parent Task Due Date:', 'nervetask' ),
-		// 	'edit_item' => _x( 'Edit Task Due Date', 'nervetask' ),
-		// 	'update_item' => _x( 'Update Task Due Date', 'nervetask' ),
-		// 	'add_new_item' => _x( 'Add New Task Due Date', 'nervetask' ),
-		// 	'new_item_name' => _x( 'New Task Due Date', 'nervetask' ),
-		// 	'separate_items_with_commas' => _x( 'Separate task due dates with commas', 'nervetask' ),
-		// 	'add_or_remove_items' => _x( 'Add or remove task due dates', 'nervetask' ),
-		// 	'choose_from_most_used' => _x( 'Choose from the most used task due dates', 'nervetask' ),
-		// 	'menu_name' => _x( 'Task Due Dates', 'nervetask' )
-		// );
-
-		// $due_date_args = array(
-		// 	'labels' => $due_date_labels,
-		// 	'public' => true,
-		// 	'show_in_nav_menus' => true,
-		// 	'show_ui' => true,
-		// 	'show_tagcloud' => true,
-		// 	'hierarchical' => false,
-		// 	'rewrite' => array(
-		// 		'slug' => 'due_date',
-		// 		'with_front' => true,
-		// 		'hierarchical' => false
-		// 	),
-		// 	'query_var' => true
-		// );
-
 		register_taxonomy( 'nervetask_status',		array( 'nervetask' ), $status_args );
 		register_taxonomy( 'nervetask_priority',	array( 'nervetask' ), $priority_args );
 		register_taxonomy( 'nervetask_category',	array( 'nervetask' ), $category_args );
-		// register_taxonomy( 'nervetask_due_date',	array( 'nervetask' ), $due_date_args );
 
 		if( function_exists( 'p2p_register_connection_type' ) ) {
 
