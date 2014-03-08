@@ -84,7 +84,7 @@
 		<label class="control-label col-sm-2" for="nervetask-new-task-due-date">Due Date</label>
 		<div class="control-input col-sm-10">
 			<input type="text" class="form-control" id="nervetask-new-task-due-date-visible" name="nervetask-new-task-due-date-visible"></input>
-			<input type="hidden" id="nervetask-new-task-due-date" name="nervetask-new-task-due-date"></input>
+			<input type="hidden" id="nervetask-new-task-due-date" name="nervetask_due_date"></input>
 			<p id="nervetask-new-task-due-date-feedback" class="display-date"></p>
 		</div>
 	</div>
