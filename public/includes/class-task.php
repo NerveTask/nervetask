@@ -534,12 +534,12 @@ class NerveTask_Task {
 		$post_id	= $data['post_id'];
 
 		// Update the meta
-		$result = update_post_meta( $post_id, 'due_date', $due_date );
+		$result = update_post_meta( $post_id, 'nervetask_due_date', $due_date );
 
 		// If the meta saved successfully
 		if ( $result ) {
 
-			$due_date = get_post_meta( $post_id, 'due_date' );
+			$due_date = get_post_meta( $post_id, 'nervetask_due_date' );
 
 			$output = array(
 				'status'	=> 'success',
