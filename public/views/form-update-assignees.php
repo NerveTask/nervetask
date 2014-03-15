@@ -45,9 +45,9 @@
 
 		<div class="form-group">
 
-			<div class="control-input col-sm-offset-2 col-sm-10">
+			<div class="control-input">
 
-				<select multiple="multiple" size="11" name="users[]" class="">
+				<select multiple="multiple" name="users[]" class="chosen-select">
 
 				<?php foreach ( $user_query->results as $user ) { ?>
 
@@ -68,7 +68,7 @@
 		</div>
 
 		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
+			<div class="control-input control-submit">
 				<button type="submit" class="btn">Update</button>
 			</div>
 		</div>

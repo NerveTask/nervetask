@@ -29,9 +29,9 @@
 
 		<div class="form-group">
 
-			<div class="control-input col-sm-offset-2 col-sm-10">
+			<div class="control-input">
 
-				<select multiple="multiple" size="11" name="priority[]" class="">
+				<select size="11" name="priority[]" class="chosen-select">
 
 				<?php foreach ( $priorities as $priority ) { ?>
 
@@ -52,7 +52,7 @@
 		</div>
 
 		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
+			<div class="control-input control-submit">
 				<button type="submit" class="btn">Update</button>
 			</div>
 		</div>

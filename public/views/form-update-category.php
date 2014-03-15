@@ -29,9 +29,9 @@
 
 		<div class="form-group">
 
-			<div class="control-input col-sm-offset-2 col-sm-10">
+			<div class="control-input">
 
-				<select multiple="multiple" size="11" name="category[]" class="">
+				<select multiple="multiple" size="11" name="category[]" class="chosen-select">
 
 				<?php foreach ( $categories as $category ) { ?>
 
@@ -52,7 +52,7 @@
 		</div>
 
 		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
+			<div class="control-input control-submit">
 				<button type="submit" class="btn">Update</button>
 			</div>
 		</div>
