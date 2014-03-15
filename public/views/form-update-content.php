@@ -1,7 +1,7 @@
 <form class="nervetask-update-content form-horizontal" role="form" method="post">
 
 	<?php if( is_user_logged_in() ) { ?>
-	<a type="button" data-toggle="collapse" data-target="#task-update-content" href="#"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+	<a type="button" class="edit-task" data-toggle="collapse" data-target="#task-update-content" href="#"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
 	<?php } ?>
 	<div class="static-content">
 		<?php the_content(); ?>
