@@ -151,9 +151,9 @@ class NerveTask_Task {
 		$post_type		= 'nervetask';
 
 		$args = array(
-			'post_content'  => $post_content,
+			'post_content'	=> $post_content,
 			'post_status'	=> $post_status,
-			'post_title'    => $post_title,
+			'post_title'	=> $post_title,
 			'post_type'		=> $post_type,
 		);
 
@@ -241,8 +241,6 @@ class NerveTask_Task {
 			return $output;
 		}
 
-		$post_id	= $data['post_id'];
-
 		if( isset( $data['nervetask-new-task-content'] ) ) {
 			$post_content = $data['nervetask-new-task-content'];
 		} else {
@@ -250,8 +248,8 @@ class NerveTask_Task {
 		}
 
 		$args = array(
-			'ID'			=> $post_id,
-			'post_content'  => $post_content
+			'ID'			=> absint( $data['post_id'] ),
+			'post_content'	=> $post_content
 		);
 
 		$post_id = wp_update_post( $args );
@@ -270,6 +268,8 @@ class NerveTask_Task {
 		} else {
 			$output = 'There was an error while creating a new task. Please refresh the page and try again.';
 		}
+
+		return $output;
 	}
 
 	/**
