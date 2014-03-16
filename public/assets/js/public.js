@@ -70,7 +70,7 @@
 		});
 
 		function nervetaskUpdateContentHandler(e) {
-console.log(e);
+
 			var content = $('textarea[name="nervetask-new-task-content"]').val();
 			$('.static-content').empty();
 			$('#task-update-content').collapse('hide');
