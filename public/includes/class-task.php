@@ -110,7 +110,7 @@ class NerveTask_Task {
 							json_encode(
 								array(
 									'success' => false,
-									'message' => __( 'An error occured. Please refresh the page and try again.' )
+									'message' => __( 'An error occured. Please refresh the page and try again.', 'nervetask' )
 								)
 							)
 						);
@@ -133,7 +133,7 @@ class NerveTask_Task {
 
 		// If the current user can't publish posts stop
 		if ( !current_user_can('publish_posts') ) {
-			$output = 'You don\'t have proper permissions to create a new task. :(';
+			$output = __( 'You don\'t have proper permissions to create a new task. :(', 'nervetask' );
 			return $output;
 		}
 
@@ -200,7 +200,7 @@ class NerveTask_Task {
 			
 			// Validates the due date ISO 8061 format by trying to recreate the date
 			$due_date = new DateTime($due_date);
-			update_post_meta( $post_id, 'due_date', $due_date ) );
+			update_post_meta( $post_id, 'due_date', $due_date );
 		}
 
 		// If the task inserted succesffully
@@ -215,7 +215,7 @@ class NerveTask_Task {
 			);
 
 		} else {
-			$output = 'There was an error while creating a new task. Please refresh the page and try again.';
+			$output = __( 'There was an error while creating a new task. Please refresh the page and try again.', 'nervetask' );
 		}
 
 		return $output;
@@ -234,7 +234,7 @@ class NerveTask_Task {
 
 		// If the current user can't publish posts stop
 		if ( !current_user_can('edit_posts') ) {
-			$output = 'You don\'t have proper permissions to update this task. :(';
+			$output = __( 'You don\'t have proper permissions to update this task. :(', 'nervetask' );
 			return $output;
 		}
 
@@ -263,7 +263,7 @@ class NerveTask_Task {
 			);
 
 		} else {
-			$output = 'There was an error while creating a new task. Please refresh the page and try again.';
+			$output = __( 'There was an error while creating a new task. Please refresh the page and try again.', 'nervetask' );
 		}
 
 		return $output;
@@ -282,7 +282,7 @@ class NerveTask_Task {
 
 		// If the current user can't publish posts stop
 		if ( !current_user_can('read') ) {
-			$output = 'You don\'t have proper permissions to insert this comment. :(';
+			$output = __( 'You don\'t have proper permissions to insert this comment. :(', 'nervetask' );
 			return $output;
 		}
 
@@ -315,7 +315,7 @@ class NerveTask_Task {
 				'comment'	=> $comment
 			);
 		} else {
-			$output = 'There was an error while creating a new task. Please refresh the page and try again.';
+			$output = __( 'There was an error while creating a new task. Please refresh the page and try again.', 'nervetask' );
 		}
 	}
 
@@ -332,7 +332,7 @@ class NerveTask_Task {
 
 		// If the current user can't edit posts stop
 		if ( !current_user_can('edit_posts') ) {
-			$output = 'You don\'t have proper permissions to update the assignees of this task. :(';
+			$output = __( 'You don\'t have proper permissions to update the assignees of this task. :(', 'nervetask' );
 			return $output;
 		}
 
@@ -363,7 +363,7 @@ class NerveTask_Task {
 				'users'		=> $users
 			);
 		} else {
-			$output = 'There was an error while creating a new task. Please refresh the page and try again.';
+			$output = __( 'There was an error while creating a new task. Please refresh the page and try again.', 'nervetask' );
 		}
 
 		return $output;
@@ -382,7 +382,7 @@ class NerveTask_Task {
 
 		// If the current user can't edit posts stop
 		if ( !current_user_can('edit_posts') ) {
-			$output = 'You don\'t have proper permissions to update the status of this task. :(';
+			$output = __( 'You don\'t have proper permissions to update the status of this task. :(', 'nervetask' );
 			return $output;
 		}
 
@@ -407,7 +407,7 @@ class NerveTask_Task {
 			);
 
 		} else {
-			$output = 'There was an error while creating a new task. Please refresh the page and try again.';
+			$output = __( 'There was an error while creating a new task. Please refresh the page and try again.', 'nervetask' );
 		}
 
 		return $output;
@@ -426,7 +426,7 @@ class NerveTask_Task {
 
 		// If the current user can't edit posts stop
 		if ( !current_user_can('edit_posts') ) {
-			$output = 'You don\'t have proper permissions to update the priority task. :(';
+			$output = __( 'You don\'t have proper permissions to update the priority task. :(', 'nervetask' );
 			return $output;
 		}
 
@@ -451,7 +451,7 @@ class NerveTask_Task {
 			);
 
 		} else {
-			$output = 'There was an error while creating a new task. Please refresh the page and try again.';
+			$output = __( 'There was an error while creating a new task. Please refresh the page and try again.', 'nervetask' );
 		}
 
 		return $output;
@@ -470,7 +470,7 @@ class NerveTask_Task {
 
 		// If the current user can't edit posts stop
 		if ( !current_user_can('edit_posts') ) {
-			$output = 'You don\'t have proper permissions to update the category of this task. :(';
+			$output = __( 'You don\'t have proper permissions to update the category of this task. :(', 'nervetask' );
 			return $output;
 		}
 
@@ -495,7 +495,7 @@ class NerveTask_Task {
 			);
 
 		} else {
-			$output = 'There was an error while creating a new task. Please refresh the page and try again.';
+			$output = __( 'There was an error while creating a new task. Please refresh the page and try again.', 'nervetask' );
 		}
 
 		return $output;
@@ -514,7 +514,7 @@ class NerveTask_Task {
 
 		// If the current user can't edit posts stop
 		if ( !current_user_can('edit_posts') ) {
-			$output = 'You don\'t have proper permissions to update the due date of this task. :(';
+			$output = __( 'You don\'t have proper permissions to update the due date of this task. :(', 'nervetask' );
 			return $output;
 		}
 
@@ -539,7 +539,7 @@ class NerveTask_Task {
 			);
 
 		} else {
-			$output = 'There was an error while creating a new task. Please refresh the page and try again.';
+			$output = __( 'There was an error while creating a new task. Please refresh the page and try again.', 'nervetask' );
 		}
 
 		return $output;
