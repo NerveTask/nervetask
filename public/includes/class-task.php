@@ -151,10 +151,10 @@ class NerveTask_Task {
 		$post_type		= 'nervetask';
 
 		$args = array(
-			'post_content'	=> $post_content,
-			'post_status'	=> $post_status,
-			'post_title'	=> $post_title,
-			'post_type'		=> $post_type,
+			'post_content'	=> wp_kses_post( $post_content ),
+			'post_status'	=> intval( $post_status ),
+			'post_title'	=> sanitize_text_field( $post_title ),
+			'post_type'		=> sanitize_title( $post_type ),
 		);
 
 		// Insert the new task and get its ID
@@ -163,47 +163,44 @@ class NerveTask_Task {
 		// TODO: Retrieve default status, priority, etc. from stored options
 		if( isset( $data['nervetask_category'] ) ) {
 
-			// Convert array values from strings to integers
 			$categories = $data['nervetask_category'];
-			$categories = array_map(
-				create_function('$value', 'return (int)$value;'),
-				$categories
-			);
+			// Convert array values from strings to integers
+			$categories = array_map('intval', $categories);
 			wp_set_post_terms( $post_id, $categories, 'nervetask_category' );
+			
 		}
 
 		// Set the user's priority or the default if not sent
 		if( isset( $data['nervetask_priority'] ) ) {
-			// Convert array values from strings to integers
+
 			$priorities = $data['nervetask_priority'];
-			$priorities = array_map(
-				create_function('$value', 'return (int)$value;'),
-				$priorities
-			);
+			// Convert array values from strings to integers
+			$priorities = array_map('intval', $priorities);
 			wp_set_post_terms( $post_id, $priorities,	'nervetask_priority' );
+			
 		} else {
 			wp_set_post_terms( $post_id, 'normal', 'nervetask_priority' );
 		}
 
 		// Set the user's status or the default if not sent
 		if( isset( $data['nervetask_status'] ) ) {
-			// Convert array values from strings to integers
+			
 			$statuses = $data['nervetask_status'];
-			$statuses = array_map(
-				create_function('$value', 'return (int)$value;'),
-				$statuses
-			);
+			// Convert array values from strings to integers
+			$statuses = array_map('intval', $statuses);
 			wp_set_post_terms( $post_id, $statuses,	'nervetask_status' );
+			
 		} else {
 			wp_set_post_terms( $post_id, 'new', 'nervetask_status' );
 		}
 
-		// Set the user's status or the default if not sent
+		// Set the task's due date
 		if( isset( $data['nervetask_due_date'] ) ) {
 			$due_date = $data['nervetask_due_date'];
-			update_post_meta( $post_id, 'due_date', $due_date );
-		} else {
-			// wp_set_post_terms( $post_id, 'new', 'nervetask_due_date' );
+			
+			// Validates the due date ISO 8061 format by trying to recreate the date
+			$due_date = new DateTime($due_date);
+			update_post_meta( $post_id, 'due_date', $due_date ) );
 		}
 
 		// If the task inserted succesffully
