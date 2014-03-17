@@ -246,7 +246,7 @@ class NerveTask_Task {
 
 		$args = array(
 			'ID'			=> absint( $data['post_id'] ),
-			'post_content'	=> $post_content
+			'post_content'	=> wp_kses_post( $post_content )
 		);
 
 		$post_id = wp_update_post( $args );
