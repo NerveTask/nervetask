@@ -131,6 +131,8 @@ class NerveTask_Task {
 			return;
 		}
 
+		check_ajax_referer( 'nervetask_new_task', 'security' );
+
 		// If the current user can't publish posts stop
 		if ( !current_user_can('publish_posts') ) {
 			$output = __( 'You don\'t have proper permissions to create a new task. :(', 'nervetask' );
@@ -280,6 +282,8 @@ class NerveTask_Task {
 			return;
 		}
 
+		check_ajax_referer( 'nervetask_update_content', 'security' );
+
 		// If the current user can't publish posts stop
 		if ( !current_user_can('read') ) {
 			$output = __( 'You don\'t have proper permissions to insert this comment. :(', 'nervetask' );
@@ -329,6 +333,8 @@ class NerveTask_Task {
 		if( empty( $data ) ) {
 			return;
 		}
+
+		check_ajax_referer( 'nervetask_update_assignees', 'security' );
 
 		// If the current user can't edit posts stop
 		if ( !current_user_can('edit_posts') ) {
@@ -380,6 +386,8 @@ class NerveTask_Task {
 			return;
 		}
 
+		check_ajax_referer( 'nervetask_update_status', 'security' );
+
 		// If the current user can't edit posts stop
 		if ( !current_user_can('edit_posts') ) {
 			$output = __( 'You don\'t have proper permissions to update the status of this task. :(', 'nervetask' );
@@ -423,6 +431,8 @@ class NerveTask_Task {
 		if( empty( $data ) ) {
 			return;
 		}
+
+		check_ajax_referer( 'nervetask_update_priority', 'security' );
 
 		// If the current user can't edit posts stop
 		if ( !current_user_can('edit_posts') ) {
@@ -468,6 +478,8 @@ class NerveTask_Task {
 			return;
 		}
 
+		check_ajax_referer( 'nervetask_update_category', 'security' );
+
 		// If the current user can't edit posts stop
 		if ( !current_user_can('edit_posts') ) {
 			$output = __( 'You don\'t have proper permissions to update the category of this task. :(', 'nervetask' );
@@ -511,6 +523,8 @@ class NerveTask_Task {
 		if( empty( $data ) ) {
 			return;
 		}
+
+		check_ajax_referer( 'nervetask_update_due_date', 'security' );
 
 		// If the current user can't edit posts stop
 		if ( !current_user_can('edit_posts') ) {
