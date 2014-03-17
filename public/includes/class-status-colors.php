@@ -97,7 +97,7 @@ class NerveTask_Status_Colors {
 		foreach ( $terms as $term ) {
 			$what = 'background' == get_option( 'nervetask_status_what_color' ) ? 'background-color' : 'color';
 
-			printf( ".nervetask-status-term-%s, .nervetask-status-%s { %s: %s; } \n", $term->term_id, $term->slug, $what, get_option( 'nervetask_status_' . $term->term_id . '_color', '#fff' ) );
+			printf( ".nervetask-status.nervetask-status-term-%s, .nervetask-status.nervetask-status-%s { %s: %s; } \n", $term->term_id, $term->slug, $what, get_option( 'nervetask_status_' . $term->term_id . '_color', '#fff' ) );
 		}
 
 		echo "</style>\n";
