@@ -227,7 +227,7 @@ class NerveTask {
 	 * @since    0.1.0
 	 */
 	private static function single_activate() {
-		
+
 $message = 'A new task (#[post_id] "[post_title]") was created by [post_author]
 
 --------------------
@@ -245,7 +245,7 @@ View: [permalink]
 --------------------
 
 [site_name] | [home_url]';
-		
+
 		// Create emails
 		$post = array(
 			'post_title'	=> 'New Task',
@@ -253,7 +253,7 @@ View: [permalink]
 			'post_status'	=> 'publish',
 			'post_type'		=> 'email'
 		);
-		
+
 		// Insert the post into the database
 		$post_id = wp_insert_post( $post );
 
@@ -280,7 +280,7 @@ View: [permalink]
 		update_post_meta( $post_id, 'email_cc_role', $email_cc_role );
 		update_post_meta( $post_id, 'email_bcc', $email_bcc );
 		update_post_meta( $post_id, 'email_bcc_role',$email_bcc_role );
-		update_post_meta( $post_id, 'email_subject', $email_subject );		
+		update_post_meta( $post_id, 'email_subject', $email_subject );
 	}
 
 	/**
@@ -488,32 +488,6 @@ View: [permalink]
 				)
 			);
 		}
-	}
-
-	/**
-	 * NOTE:  Actions are points in the execution of a page or process
-	 *        lifecycle that WordPress fires.
-	 *
-	 *        Actions:    http://codex.wordpress.org/Plugin_API#Actions
-	 *        Reference:  http://codex.wordpress.org/Plugin_API/Action_Reference
-	 *
-	 * @since    0.1.0
-	 */
-	public function action_method_name() {
-		// @TODO: Define your action hook callback here
-	}
-
-	/**
-	 * NOTE:  Filters are points of execution in which WordPress modifies data
-	 *        before saving it or sending it to the browser.
-	 *
-	 *        Filters: http://codex.wordpress.org/Plugin_API#Filters
-	 *        Reference:  http://codex.wordpress.org/Plugin_API/Filter_Reference
-	 *
-	 * @since    0.1.0
-	 */
-	public function filter_method_name() {
-		// @TODO: Define your filter hook callback here
 	}
 
 	public function body_class( $classes ) {
