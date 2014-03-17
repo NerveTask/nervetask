@@ -359,7 +359,7 @@ View: [permalink]
 			'labels' => $task_labels,
 			'hierarchical' => true,
 			'supports' => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'custom-fields', 'comments', 'revisions', 'page-attributes', 'discussion' ),
-			'taxonomies' => array( 'category', 'post_tag', 'nervetask_status', 'nervetask_priority' ),
+			'taxonomies' => array( 'post_tag', 'nervetask_status', 'nervetask_priority' ),
 			'public' => true,
 			'show_ui' => true,
 			'show_in_menu' => true,
