@@ -388,12 +388,9 @@ class NerveTask_Task {
 
 		$status		= $data['status'];
 		$post_id	= $data['post_id'];
-
+		
 		// Convert array values from strings to integers
-		$status = array_map(
-			create_function('$value', 'return (int)$value;'),
-			$status
-		);
+		$status = array_map('intval', $status);
 
 		// Update the terms
 		$result = wp_set_post_terms( $post_id, $status, 'nervetask_status' );
@@ -437,10 +434,7 @@ class NerveTask_Task {
 		$post_id	= $data['post_id'];
 
 		// Convert array values from strings to integers
-		$priority = array_map(
-			create_function('$value', 'return (int)$value;'),
-			$priority
-		);
+		$priority = array_map('intval', $priority);
 
 		// Update the terms
 		$result = wp_set_post_terms( $post_id, $priority, 'nervetask_priority' );
@@ -484,10 +478,7 @@ class NerveTask_Task {
 		$post_id	= $data['post_id'];
 
 		// Convert array values from strings to integers
-		$category = array_map(
-			create_function('$value', 'return (int)$value;'),
-			$category
-		);
+		$category = array_map('intval', $category);
 
 		// Update the terms
 		$result = wp_set_post_terms( $post_id, $category, 'nervetask_category' );
@@ -529,6 +520,9 @@ class NerveTask_Task {
 
 		$due_date	= $data['due_date'];
 		$post_id	= $data['post_id'];
+		
+		// Validates the due date ISO 8061 format by trying to recreate the date
+		$due_date = new DateTime($due_date);
 
 		// Update the meta
 		$result = update_post_meta( $post_id, 'nervetask_due_date', $due_date );
