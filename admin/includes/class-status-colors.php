@@ -35,7 +35,7 @@ class NerveTask_Status_Colors {
 
 		return self::$instance;
 	}
-	
+
 	private function setup_actions() {
 		add_filter( 'nervetask_settings', array( $this, 'nervetask_settings' ) );
 		add_action( 'wp_head', array( $this, 'output_colors' ) );
@@ -97,7 +97,7 @@ class NerveTask_Status_Colors {
 		foreach ( $terms as $term ) {
 			$what = 'background' == get_option( 'nervetask_status_what_color' ) ? 'background-color' : 'color';
 
-			printf( ".nervetask-status.term-%s, .nervetask-status.%s { %s: %s; } \n", $term->term_id, $term->slug, $what, get_option( 'nervetask_status_' . $term->term_id . '_color', '#fff' ) );
+			printf( ".nervetask-status-term-%s, .nervetask-status-%s { %s: %s; } \n", $term->term_id, $term->slug, $what, get_option( 'nervetask_status_' . $term->term_id . '_color', '#fff' ) );
 		}
 
 		echo "</style>\n";
@@ -106,7 +106,7 @@ class NerveTask_Status_Colors {
 	public function colorpickers( $hook ) {
 		$screen = get_current_screen();
 
-		if ( 'nervetask-settings' != $screen->id )
+		if ( 'nervetask_page_nervetask-settings' != $screen->id )
 			return;
 
 		wp_enqueue_script( 'wp-color-picker' );
@@ -116,7 +116,7 @@ class NerveTask_Status_Colors {
 	public function colorpickersjs() {
 		$screen = get_current_screen();
 
-		if ( 'nervetask-settings' != $screen->id )
+		if ( 'nervetask_page_nervetask-settings' != $screen->id )
 			return;
 		?>
 			<script>
