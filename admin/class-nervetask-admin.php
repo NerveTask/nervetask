@@ -51,10 +51,6 @@ class NerveTask_Admin {
 		// Add the options page and menu item.
 		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
 
-		// Add an action link pointing to the options page.
-		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_slug . '.php' );
-		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
-
 	}
 
 	/**
@@ -120,73 +116,23 @@ class NerveTask_Admin {
 	 * @since    0.1.0
 	 */
 	public function add_plugin_admin_menu() {
+		
+		$this->settings_page = new NerveTask_Settings();
+		
+		add_submenu_page( 'edit.php?post_type=nervetask', __( 'Settings', 'nervetask' ), __( 'Settings', 'nervetask' ), 'manage_options', 'nervetask-settings', array( $this->settings_page, 'output' ) );
 
-		/*
-		 * Add a settings page for this plugin to the Settings menu.
-		 *
-		 * NOTE:  Alternative menu locations are available via WordPress administration menu functions.
-		 *
-		 *        Administration Menus: http://codex.wordpress.org/Administration_Menus
-		 */
-		$this->plugin_screen_hook_suffix = add_options_page(
-			__( 'NerveTask', $this->plugin_slug ),
-			__( 'NerveTask', $this->plugin_slug ),
-			'manage_options',
-			$this->plugin_slug,
-			array( $this, 'display_plugin_admin_page' )
-		);
+		if ( apply_filters( 'nervetask_show_addons_page', true ) ) {
+			add_submenu_page(  'edit.php?post_type=nervetask', __( 'NerveTask Add-ons', 'nervetask' ),  __( 'Add-ons', 'nervetask' ) , 'manage_options', 'nervetask-addons', array( $this, 'addons_page' ) );
+		}
 
 	}
-
+	
 	/**
-	 * Render the settings page for this plugin.
-	 *
-	 * @since    0.1.0
+	 * Output addons page
 	 */
-	public function display_plugin_admin_page() {
-		include_once( 'views/admin.php' );
-	}
-
-	/**
-	 * Add settings action link to the plugins page.
-	 *
-	 * @since    0.1.0
-	 */
-	public function add_action_links( $links ) {
-
-		return array_merge(
-			array(
-				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
-			),
-			$links
-		);
-
-	}
-
-	/**
-	 * NOTE:     Actions are points in the execution of a page or process
-	 *           lifecycle that WordPress fires.
-	 *
-	 *           Actions:    http://codex.wordpress.org/Plugin_API#Actions
-	 *           Reference:  http://codex.wordpress.org/Plugin_API/Action_Reference
-	 *
-	 * @since    0.1.0
-	 */
-	public function action_method_name() {
-		// @TODO: Define action hook callback here
-	}
-
-	/**
-	 * NOTE:     Filters are points of execution in which WordPress modifies data
-	 *           before saving it or sending it to the browser.
-	 *
-	 *           Filters: http://codex.wordpress.org/Plugin_API#Filters
-	 *           Reference:  http://codex.wordpress.org/Plugin_API/Filter_Reference
-	 *
-	 * @since    0.1.0
-	 */
-	public function filter_method_name() {
-		// @TODO: Define filter hook callback here
+	public function addons_page() {
+		$addons = include( 'includes/class-addons.php' );
+		$addons->output();
 	}
 
 }

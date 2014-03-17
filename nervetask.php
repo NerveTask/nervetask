@@ -44,6 +44,7 @@ register_deactivation_hook( __FILE__, array( 'NerveTask', 'deactivate' ) );
 add_action( 'plugins_loaded', array( 'NerveTask', 'get_instance' ) );
 add_action( 'plugins_loaded', array( 'NerveTask_Task', 'get_instance' ) );
 
+
 /*----------------------------------------------------------------------------*
  * Dashboard and Administrative Functionality
  *----------------------------------------------------------------------------*/
@@ -60,6 +61,10 @@ add_action( 'plugins_loaded', array( 'NerveTask_Task', 'get_instance' ) );
 if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-nervetask-admin.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/class-settings.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/class-status-colors.php' );
 	add_action( 'plugins_loaded', array( 'NerveTask_Admin', 'get_instance' ) );
+	add_action( 'plugins_loaded', array( 'NerveTask_Settings', 'get_instance' ) );
+	add_action( 'plugins_loaded', array( 'NerveTask_Status_Colors', 'get_instance' ) );
 
 }
