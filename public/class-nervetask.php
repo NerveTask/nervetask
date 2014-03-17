@@ -63,6 +63,9 @@ class NerveTask {
 		// Activate plugin when new blog is added
 		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
 
+        // Check is users are required to login
+        add_action( 'template_redirect', array( $this, 'require_login_check' ) );
+
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -487,6 +490,22 @@ View: [permalink]
 				  'to'		=> 'user'
 				)
 			);
+		}
+	}
+
+	/**
+	* Checks if a setting is requiring users to be logged in.
+	*
+	* If login is required and the user is not logged in they will be redireted
+	* to the login page.
+	*
+	* @since    0.1.0
+	*/
+	public function require_login_check() {
+		if ( get_option('nervetask_walled_garden') ) {
+		if (!is_user_logged_in()) {
+				auth_redirect();
+			}
 		}
 	}
 
