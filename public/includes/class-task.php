@@ -154,7 +154,7 @@ class NerveTask_Task {
 
 		$args = array(
 			'post_content'	=> wp_kses_post( $post_content ),
-			'post_status'	=> intval( $post_status ),
+			'post_status'	=> $post_status,
 			'post_title'	=> sanitize_text_field( $post_title ),
 			'post_type'		=> sanitize_title( $post_type ),
 		);
