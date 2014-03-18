@@ -63,8 +63,8 @@ class NerveTask {
 		// Activate plugin when new blog is added
 		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
 
-        // Check is users are required to login
-        add_action( 'template_redirect', array( $this, 'require_login_check' ) );
+		// Check is users are required to login
+		add_action( 'template_redirect', array( $this, 'require_login_check' ) );
 
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
@@ -231,59 +231,8 @@ class NerveTask {
 	 */
 	private static function single_activate() {
 
-$message = 'A new task (#[post_id] "[post_title]") was created by [post_author]
+		include( 'includes/class-install.php' );
 
---------------------
-
-== Task details ==
-Title: [post_title]
-Author: [post_author] ([post_author_email])
-
-[post_content]
-
-== Actions ==
-Edit: [edit_post_url]
-View: [permalink]
-
---------------------
-
-[site_name] | [home_url]';
-
-		// Create emails
-		$post = array(
-			'post_title'	=> 'New Task',
-			'post_content'	=> $message,
-			'post_status'	=> 'publish',
-			'post_type'		=> 'email'
-		);
-
-		// Insert the post into the database
-		$post_id = wp_insert_post( $post );
-
-		$email_action 		= 'new';
-		$email_type 		= 'nervetask';
-		$email_from 		= '[author_email]';
-		$email_from_name	= '[display_name]';
-		$email_to 			= '[subscribed]';
-		$email_to_role 		= '';
-		$email_cc 			= '';
-		$email_cc_role 		= '';
-		$email_bcc 			= '';
-		$email_bcc_role 	= '';
-		$email_subject 		= '[post_title]';
-		$email_message 		= '[post_content]';
-
-		update_post_meta( $post_id, 'email_action', $email_action );
-		update_post_meta( $post_id, 'email_type', $email_type );
-		update_post_meta( $post_id, 'email_from', $email_from );
-		update_post_meta( $post_id, 'email_from_name', $email_from_name );
-		update_post_meta( $post_id, 'email_to', $email_to );
-		update_post_meta( $post_id, 'email_to_role', $email_to_role );
-		update_post_meta( $post_id, 'email_cc', $email_cc );
-		update_post_meta( $post_id, 'email_cc_role', $email_cc_role );
-		update_post_meta( $post_id, 'email_bcc', $email_bcc );
-		update_post_meta( $post_id, 'email_bcc_role',$email_bcc_role );
-		update_post_meta( $post_id, 'email_subject', $email_subject );
 	}
 
 	/**
