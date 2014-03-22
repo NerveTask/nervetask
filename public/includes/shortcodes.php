@@ -50,6 +50,13 @@ function nervetask_shortcode_update_content() {
 }
 add_shortcode( 'nervetask_update_content', 'nervetask_shortcode_update_content' );
 
+function nervetask_shortcode_update_due_date() {
+	ob_start();
+	require_once( plugin_dir_path( __FILE__ ) . '../views/form-update-due_date.php' );
+	return ob_get_clean();
+}
+add_shortcode( 'nervetask_update_due_date', 'nervetask_shortcode_update_due_date' );
+
 function nervetask_new_task_form( $atts ) {
 	require_once( plugin_dir_path( __FILE__ ) . '../views/form-new-task.php' );
 }

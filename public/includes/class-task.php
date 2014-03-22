@@ -202,7 +202,7 @@ class NerveTask_Task {
 			
 			// Validates the due date ISO 8061 format by trying to recreate the date
 			$due_date = new DateTime($due_date);
-			update_post_meta( $post_id, 'due_date', $due_date );
+			update_post_meta( $post_id, 'nervetask_due_date', $due_date );
 		}
 
 		// If the task inserted succesffully
