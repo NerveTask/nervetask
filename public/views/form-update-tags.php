@@ -25,8 +25,6 @@
 
 	<div class="collapse" id="task-meta-tags-options">
 
-	<?php if ( ! empty( $tags ) ) { ?>
-
 		<div class="form-group">
 
 			<div class="control-input">
@@ -56,10 +54,6 @@
 				<button type="submit" class="btn">Update</button>
 			</div>
 		</div>
-
-	<?php } else { ?>
-		<p>There are no tags</p>
-	<?php } ?>
 
 	</div>
 
