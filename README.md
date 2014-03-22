@@ -10,8 +10,8 @@ Other WordPress project management solutions exist by bundling plugin features i
 
 ## NerveTask vs. XYZ?
 
-- Data portability
-- Data ownership
+- Open-source
+- Data portability & ownership
 - Can be customized to your heart's desire
 - Can be integrated into your existing website (project-management.youragency.com)
 - Open-source
@@ -22,6 +22,8 @@ Other WordPress project management solutions exist by bundling plugin features i
 - Tasks
 - Customizable task status (ex. new, in-progress, completed)
 - Customizable task priority (ex. low, normal, high)
+- With Posts 2 Posts, tasks can be assigned to users
+- With Email, users can get email notifications
 
 ## Contributing
 
@@ -29,5 +31,4 @@ Get involved in the **planning, discussion, and road-mapping** by participating 
 
 Or fork the repository and submit pull requests!
 
-[control]: https://github.com/NerveTask/control
 [NerveTask Plugin Trello Board]: https://trello.com/b/sV78jSZh/nervetask
