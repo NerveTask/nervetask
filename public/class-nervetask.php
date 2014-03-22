@@ -63,8 +63,8 @@ class NerveTask {
 		// Activate plugin when new blog is added
 		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
 
-        // Check is users are required to login
-        add_action( 'template_redirect', array( $this, 'require_login_check' ) );
+		// Check is users are required to login
+		add_action( 'template_redirect', array( $this, 'require_login_check' ) );
 
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
@@ -231,59 +231,8 @@ class NerveTask {
 	 */
 	private static function single_activate() {
 
-$message = 'A new task (#[post_id] "[post_title]") was created by [post_author]
+		include( 'includes/class-install.php' );
 
---------------------
-
-== Task details ==
-Title: [post_title]
-Author: [post_author] ([post_author_email])
-
-[post_content]
-
-== Actions ==
-Edit: [edit_post_url]
-View: [permalink]
-
---------------------
-
-[site_name] | [home_url]';
-
-		// Create emails
-		$post = array(
-			'post_title'	=> 'New Task',
-			'post_content'	=> $message,
-			'post_status'	=> 'publish',
-			'post_type'		=> 'email'
-		);
-
-		// Insert the post into the database
-		$post_id = wp_insert_post( $post );
-
-		$email_action 		= 'new';
-		$email_type 		= 'nervetask';
-		$email_from 		= '[author_email]';
-		$email_from_name	= '[display_name]';
-		$email_to 			= '[subscribed]';
-		$email_to_role 		= '';
-		$email_cc 			= '';
-		$email_cc_role 		= '';
-		$email_bcc 			= '';
-		$email_bcc_role 	= '';
-		$email_subject 		= '[post_title]';
-		$email_message 		= '[post_content]';
-
-		update_post_meta( $post_id, 'email_action', $email_action );
-		update_post_meta( $post_id, 'email_type', $email_type );
-		update_post_meta( $post_id, 'email_from', $email_from );
-		update_post_meta( $post_id, 'email_from_name', $email_from_name );
-		update_post_meta( $post_id, 'email_to', $email_to );
-		update_post_meta( $post_id, 'email_to_role', $email_to_role );
-		update_post_meta( $post_id, 'email_cc', $email_cc );
-		update_post_meta( $post_id, 'email_cc_role', $email_cc_role );
-		update_post_meta( $post_id, 'email_bcc', $email_bcc );
-		update_post_meta( $post_id, 'email_bcc_role',$email_bcc_role );
-		update_post_meta( $post_id, 'email_subject', $email_subject );
 	}
 
 	/**
@@ -477,9 +426,43 @@ View: [permalink]
 			'query_var' => true
 		);
 
+		$tags_labels = array(
+			'name' => _x( 'Task Tags', 'nervetask' ),
+			'singular_name' => _x( 'Task Tag', 'nervetask' ),
+			'search_items' => _x( 'Search Task Tags', 'nervetask' ),
+			'popular_items' => _x( 'Popular Task Tags', 'nervetask' ),
+			'all_items' => _x( 'All Task Tags', 'nervetask' ),
+			'parent_item' => _x( 'Parent Task Tag', 'nervetask' ),
+			'parent_item_colon' => _x( 'Parent Task Tag:', 'nervetask' ),
+			'edit_item' => _x( 'Edit Task Tag', 'nervetask' ),
+			'update_item' => _x( 'Update Task Tag', 'nervetask' ),
+			'add_new_item' => _x( 'Add New Task Tag', 'nervetask' ),
+			'new_item_name' => _x( 'New Task Tag', 'nervetask' ),
+			'separate_items_with_commas' => _x( 'Separate task tags with commas', 'nervetask' ),
+			'add_or_remove_items' => _x( 'Add or remove task tags', 'nervetask' ),
+			'choose_from_most_used' => _x( 'Choose from the most used task tags', 'nervetask' ),
+			'menu_name' => _x( 'Task Tags', 'nervetask' )
+		);
+
+		$tags_args = array(
+			'labels' => $tags_labels,
+			'public' => true,
+			'show_in_nav_menus' => true,
+			'show_ui' => true,
+			'show_tagcloud' => true,
+			'hierarchical' => false,
+			'rewrite' => array(
+				'slug' => 'category',
+				'with_front' => true,
+				'hierarchical' => false
+			),
+			'query_var' => true
+		);
+		
 		register_taxonomy( 'nervetask_status',		array( 'nervetask' ), $status_args );
 		register_taxonomy( 'nervetask_priority',	array( 'nervetask' ), $priority_args );
 		register_taxonomy( 'nervetask_category',	array( 'nervetask' ), $category_args );
+		register_taxonomy( 'nervetask_tags',		array( 'nervetask' ), $tags_args );
 
 		if( function_exists( 'p2p_register_connection_type' ) ) {
 
