@@ -96,6 +96,9 @@ class NerveTask_Task {
 				if( $_POST['controller'] == 'nervetask_update_category' ) {
 					$result = self::update_category($_POST);
 				}
+				if( $_POST['controller'] == 'nervetask_update_tags' ) {
+					$result = self::update_tags($_POST);
+				}
 				if( $_POST['controller'] == 'nervetask_update_due_date' ) {
 					$result = self::update_due_date($_POST);
 				}
@@ -513,6 +516,49 @@ class NerveTask_Task {
 		return $output;
 	}
 
+	/**
+	 * Updates the tags of a task.
+	 *
+	 * @since    0.1.0
+	 */
+	public function update_tags( $data ) {
+
+		if( empty( $data ) ) {
+			return;
+		}
+
+		check_ajax_referer( 'nervetask_update_tags', 'security' );
+
+		// If the current user can't edit posts, stop
+		if ( !current_user_can('edit_posts') ) {
+			$output = __( 'You don\'t have proper permissions to update the tags for this task. :(', 'nervetask' );
+			return $output;
+		}
+
+		$tags	= $data['tags'];
+		$post_id	= $data['post_id'];
+
+		// Update the terms
+		$result = wp_set_post_terms( $post_id, $tags, 'nervetask_tags' );
+
+		// If the tags saved succesffully
+		if ( $result ) {
+
+			$terms = get_the_terms( $post_id, 'nervetask_category' );
+
+			$output = array(
+				'status'	=> 'success',
+				'message'	=> __('Success!'),
+				'terms'		=> $terms
+			);
+
+		} else {
+			$output = __( 'There was an error while updating the tags. Please refresh the page and try again.', 'nervetask' );
+		}
+
+		return $output;
+	}
+	
 	/**
 	 * Updates the category of a task.
 	 *

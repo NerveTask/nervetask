@@ -68,6 +68,10 @@
 		$('.nervetask-update-category').submit(function (e) {
 			nervetaskAjax(this, e, 'nervetask-update-category');
 		});
+		
+		$('.nervetask-update-tags').submit(function (e) {
+			nervetaskAjax(this, e, 'nervetask-update-tags');
+		});
 
 		function nervetaskUpdateContentHandler(e) {
 
