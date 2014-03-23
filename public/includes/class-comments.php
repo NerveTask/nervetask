@@ -34,6 +34,8 @@ class NerveTask_Comments {
 
 		add_action( 'set_object_terms', array( $this, 'updated_terms_comment' ), 10, 6 );
 
+		add_filter( 'comment_class', array( $this, 'status_classes' ), 10, 4 );
+
 	}
 
 	/**
@@ -102,15 +104,40 @@ class NerveTask_Comments {
 		$data = array(
 			'comment_author' => $current_user -> display_name,
 			'comment_author_email' => $current_user -> user_email,
-			'comment_content' => 'updated the '. $taxonomy_object->singular_label .': '. $terms_list,
+			'comment_content' => 'updated the '. $taxonomy_object->labels->singular_name .': '. $terms_list,
 			'comment_post_ID' => $object_id,
 			'comment_type' =>'status'
 		);
 
-		$comment_id = wp_insert_comment($data);
+		$comment_id = wp_insert_comment( $data );
+
+		if( $comment_id ) {
+
+			$statuses = get_the_terms( $object_id, 'nervetask_status' );
+
+			$comment_meta = update_comment_meta( $comment_id, 'nervetask_status', $statuses );
+
+		}
 		
 		return $comment_id;
 
 	}
 
+	function status_classes( $classes ) {
+
+		$statuses = get_comment_meta( get_comment_ID(), 'nervetask_status', true );
+
+		if ( isset( $statuses ) && is_array( $statuses ) ) {
+			foreach( $statuses as $status ) {
+				$status = get_term( $status->term_id, 'nervetask_status' );
+				$classes[] = 'nervetask-status-'. $status->slug;
+			}
+		} else {
+			$classes[] = 'NOT WORKING';
+		}
+
+		// Return the result
+		return $classes;
+
+	}
 }
