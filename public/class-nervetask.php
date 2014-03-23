@@ -417,11 +417,11 @@ class NerveTask {
 			'show_in_nav_menus' => true,
 			'show_ui' => true,
 			'show_tagcloud' => true,
-			'hierarchical' => false,
+			'hierarchical' => true,
 			'rewrite' => array(
 				'slug' => 'category',
 				'with_front' => true,
-				'hierarchical' => false
+				'hierarchical' => true
 			),
 			'query_var' => true
 		);
