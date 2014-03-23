@@ -33,6 +33,8 @@ class NerveTask_Comments {
 	private function __construct() {
 
 		add_action( 'set_object_terms', array( $this, 'updated_terms_comment' ), 10, 6 );
+		add_action( 'save_post', array( $this, 'updated_post_comment' ), 10, 1 );
+		add_action( 'wp_insert_comment', array( $this, 'new_comment' ), 10, 2 );
 
 		add_filter( 'comment_class', array( $this, 'status_classes' ), 10, 4 );
 
@@ -95,12 +97,6 @@ class NerveTask_Comments {
 
 		$taxonomy_object = get_taxonomy( $taxonomy );
 		
-		// If the current user can't edit posts stop
-		if ( !current_user_can('edit_posts') ) {
-			$output = __( 'You don\'t have proper permissions to update the due date of this task. :(', 'nervetask' );
-			return $output;
-		}
-
 		$data = array(
 			'comment_author' => $current_user -> display_name,
 			'comment_author_email' => $current_user -> user_email,
@@ -122,7 +118,76 @@ class NerveTask_Comments {
 		return $comment_id;
 
 	}
+	
+	/**
+	 * Adds a comment when a task's content is updated.
+	 *
+	 * @since    0.1.0
+	 */
+	public function updated_post_comment( $object_id ) {
+		
+		$current_user = wp_get_current_user();
+		$post = get_post( $object_id );
 
+		if( empty( $post ) ) {
+			return;
+		}
+		
+		if ( 'nervetask' != get_post_type( $post ) ) {
+			return;
+		}
+
+		$revisions = wp_get_post_revisions($post->ID, array( 'posts_per_page' => 1 ) );
+
+		foreach( $revisions as $revision ) {
+			$revision_id = $revision->ID;
+		}
+
+		$data = array(
+			'comment_author' => $current_user -> display_name,
+			'comment_author_email' => $current_user -> user_email,
+			'comment_content' => 'updated the task content - <a href="'. esc_url( admin_url( 'revision.php?revision='. $revision_id ) ) .'">revisions</a>',
+			'comment_post_ID' => $object_id,
+			'comment_type' =>'status'
+		);
+
+		$comment_id = wp_insert_comment( $data );
+
+		if( $comment_id ) {
+
+			$statuses = get_the_terms( $object_id, 'nervetask_status' );
+
+			$comment_meta = update_comment_meta( $comment_id, 'nervetask_status', $statuses );
+
+		}
+		
+		return $comment_id;
+
+	}
+
+	/**
+	 * Updates the comment meta when a new comment is inserted.
+	 *
+	 * @since    0.1.0
+	 */
+	public function new_comment( $comment_id, $comment_object ) {
+		
+		$post = get_post( $comment_object->comment_parent );
+
+		if( empty( $post ) ) {
+			return;
+		}
+		
+		if ( 'nervetask' != get_post_type( $post ) ) {
+			return;
+		}
+
+		$statuses = get_the_terms( $post->ID, 'nervetask_status' );
+
+		$comment_meta = update_comment_meta( $comment_id, 'nervetask_status', $statuses );
+
+	}
+	
 	function status_classes( $classes ) {
 
 		$statuses = get_comment_meta( get_comment_ID(), 'nervetask_status', true );
