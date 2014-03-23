@@ -544,7 +544,7 @@ class NerveTask_Task {
 		// If the tags saved succesffully
 		if ( $result ) {
 
-			$terms = get_the_terms( $post_id, 'nervetask_category' );
+			$terms = get_the_terms( $post_id, 'nervetask_tags' );
 
 			$output = array(
 				'status'	=> 'success',
