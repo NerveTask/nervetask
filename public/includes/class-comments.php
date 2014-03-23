@@ -132,8 +132,6 @@ class NerveTask_Comments {
 				$status = get_term( $status->term_id, 'nervetask_status' );
 				$classes[] = 'nervetask-status-'. $status->slug;
 			}
-		} else {
-			$classes[] = 'NOT WORKING';
 		}
 
 		// Return the result
