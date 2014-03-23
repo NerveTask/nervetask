@@ -13,9 +13,8 @@
 		<?php if ( ! empty( $assigned_tags ) ) { ?>
 			<strong>Tags:
 			<span class="task-tags">
-			<?php foreach ( $assigned_tags as $tag ) { $tag = get_term_by( 'id', $tag, 'nervetask_tags' );  ?>
-				<a href="<?php echo home_url( '/?nervetask_tags='. $tag->slug ); ?>"><?php echo esc_html( $tag->name ); ?></a>
-			<?php } ?>
+			<?php foreach ( $assigned_tags as $tag ) { $tag = get_term_by( 'id', $tag, 'nervetask_tags' ); if( isset( $prefix ) ) { echo $prefix; } ?>
+				<a href="<?php echo home_url( '/?nervetask_tags='. $tag->slug ); ?>"><?php echo esc_html( $tag->name ); ?></a><?php $prefix = ', '; } ?>
 			</span>
 			</strong>
 		<?php } else { ?>
