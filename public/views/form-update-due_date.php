@@ -1,36 +1,29 @@
 <?php
-	
-	$due_date = get_post_meta( $post->ID(), 'nervetask_due_date' );
-
-	// $priorities = get_terms( 'nervetask_due_date', array( 'hide_empty' => 0, 'orderby' => 'slug' ) );
-	// $assigned_priorities = wp_get_object_terms( get_the_ID(), 'nervetask_due_date', array( 'fields' => 'ids' ) );
+	global $post;
+	$due_date = get_post_meta( $post->ID, 'nervetask_due_date' );
 ?>
 
 <form class="nervetask-update-due_date form-horizontal" role="form" method="post">
-
 	<div>
 		<?php if( current_user_can( 'edit_posts' ) ) { ?>
 			<a type="button" data-toggle="collapse" data-target="#task-meta-due_date-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
+		<?php } else { ?>
+			<span>Can't edit :(</span>
 		<?php } ?>
 
-		<pre><?php print the_ID(); ?></pre>
-		<pre><?php print get_the_ID(); ?></pre>
-		<?php foreach ( $due_date as $meta) { ?> 
-		<pre><?php print_r( $meta ); ?></pre>
-		<?php } ?>
-		<?php if ( ! $due_date ) { ?>
+		<?php if ( $due_date ) { ?>
 			<strong>Due Date:
 			<span class="task-due_date">
+				<?php var_export($due_date); ?>
 			</span>
 			</strong>
 		<?php } else { ?>
-			<span class="task-due_date">There is no assigned due_date</span>
+			<span class="task-due_date">There is no assigned due date</span>
 		<?php } ?>
 	</div>
 
+	<?php if ( $due_date ) { ?>
 	<div class="collapse" id="task-meta-due_date-options">
-
-	<?php if ( ! $due_date ) { ?>
 
 		<div class="form-group">
 
