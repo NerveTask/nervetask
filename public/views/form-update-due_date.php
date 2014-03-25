@@ -1,6 +1,6 @@
 <?php
 	global $post;
-	$due_date = get_post_meta( $post->ID, 'nervetask_due_date' );
+	$due_date = get_post_meta( $post->ID, 'nervetask_due_date', TRUE );
 ?>
 
 <form class="nervetask-update-due_date form-horizontal" role="form" method="post">
@@ -14,7 +14,7 @@
 		<?php if ( $due_date ) { ?>
 			<strong>Due Date:
 			<span class="task-due_date">
-				<?php var_export($due_date); ?>
+				<?php echo $due_date->format('Y-m-d H:i:s'); ?>
 			</span>
 			</strong>
 		<?php } else { ?>
@@ -22,27 +22,26 @@
 		<?php } ?>
 	</div>
 
-	<?php if ( $due_date ) { ?>
 	<div class="collapse" id="task-meta-due_date-options">
 
+	<?php if ( $due_date ) { ?>
+
 		<div class="form-group">
 
-			<div class="control-input col-sm-offset-2 col-sm-10">
+			<div class="control-input">
 
-				<input size="11" name="due_date[]" class="" value="<?php echo $due_date; ?>"/>
+				<input name="due_date[]" class="form-control" value="<?php echo $due_date->format('Y-m-d H:i:s'); ?>"/>
 
 			</div>
 
 		</div>
 
 		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn">Update</button>
+			<div class="control-input control-submit">
+				<button type="submit" class="btn btn-block">Update</button>
 			</div>
 		</div>
 
-	<?php } else { ?>
-		<p>There is no due date</p>
 	<?php } ?>
 
 	</div>
