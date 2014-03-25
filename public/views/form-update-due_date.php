@@ -30,7 +30,7 @@
 
 			<div class="control-input">
 
-				<input name="due_date[]" class="form-control" value="<?php echo $due_date->format('Y-m-d H:i:s'); ?>"/>
+				<input name="nervetask_due_date" class="form-control" value="<?php echo $due_date->format('Y-m-d H:i:s'); ?>"/>
 
 			</div>
 
@@ -49,6 +49,6 @@
 	<input type="hidden" name="action" value="nervetask">
 	<input type="hidden" name="controller" value="nervetask_update_due_date">
 	<input type="hidden" name="post_id" value="<?php the_ID(); ?>">
-	<input type="hidden" name="security" value="<?php echo wp_create_nonce( 'nervetask_update_get_post_meta' ); ?>">
+	<input type="hidden" name="security" value="<?php echo wp_create_nonce( 'nervetask_update_due_date' ); ?>">
 
 </form>

@@ -578,41 +578,22 @@ class NerveTask_Task {
 			return $output;
 		}
 
-		$due_date	= $data['due_date'];
+		$due_date	= $data['nervetask_due_date'];
 		$post_id	= $data['post_id'];
 		
 		$due_date = new DateTime($due_date);
 
-		// $value = get_post_meta( $post_id, 'nervetask_due_date', true );
-
-		$new_value = array(
-			// 'due_date' => $due_date,
-			'due_date' => 'foo',
-			'timestamp' => time ()
-		);
-
-		// if( is_array( $value ) ) {
-		// 	$value[] = $new_value;
-		// } else {
-			// $value = array($new_value);
-		// }
-
-		$updated = update_post_meta( $post_id, 'nervetask_due_date', $new_value );
-
-
-
-		// $result = update_post_meta( $post_id, 'nervetask_due_date', $due_date );
+		$updated = update_post_meta( $post_id, 'nervetask_due_date', $due_date );
 
 		// If the meta saved successfully
-		if ( $result ) {
-
+		if ( $updated ) {
 
 			$updated = get_post_meta( $post_id, 'nervetask_due_date' );
 
 			$output = array(
-				'status'	=> 'success',
-				'message'	=> __('Success!'),
-				'due_date'		=> $updated
+				'status' => 'success',
+				'message' => __('Success!'),
+				'due_date' => $updated
 			);
 
 		} else {
