@@ -106,7 +106,7 @@
 
 <?php } else { ?>
 
-<div class="alert alert-warning">
+<div class="alert alert-warning alert-login-required">
 
 	You must be logged in to create new tasks.
 	
