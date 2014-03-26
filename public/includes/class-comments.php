@@ -142,6 +142,10 @@ class NerveTask_Comments {
 		foreach( $revisions as $revision ) {
 			$revision_id = $revision->ID;
 		}
+		
+		if( empty( $revision_id ) ) {
+			return;
+		}
 
 		$data = array(
 			'comment_author' => $current_user -> display_name,
