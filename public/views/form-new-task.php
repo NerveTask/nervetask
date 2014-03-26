@@ -93,7 +93,7 @@
 
 
 	<div class="form-group">
-		<div class="col-sm-offset-2">
+		<div class="control-input control-submit">
 			<button type="submit" class="btn">Create Task</button>
 		</div>
 	</div>
