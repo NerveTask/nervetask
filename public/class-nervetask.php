@@ -265,7 +265,8 @@ class NerveTask {
 	 * @since    0.1.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array(), self::VERSION );
+		wp_enqueue_style( $this->plugin_slug . '-bootstrap-daterangepicker', plugins_url( 'assets/css/vendor/bootstrap-daterangepicker/bootstrap-daterangepicker.css', __FILE__ ), array(), self::VERSION );
+		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array($this->plugin_slug . '-bootstrap-daterangepicker'), self::VERSION );
 	}
 
 	/**
@@ -275,9 +276,10 @@ class NerveTask {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( 'jquery' ), self::VERSION );
-
-		wp_enqueue_script( $this->plugin_slug . '-sugar', plugins_url( 'assets/js/vendor/sugar/sugar.min.js', __FILE__ ), array(), self::VERSION );
-		wp_enqueue_script( $this->plugin_slug . '-due_date', plugins_url( 'assets/js/due_date.js', __FILE__ ), array( 'jquery', $this->plugin_slug . '-sugar' ), self::VERSION );
+		wp_enqueue_script( $this->plugin_slug . '-bootstrap', plugins_url( 'assets/js/vendor/bootstrap/bootstrap.min.js', __FILE__ ), array(), self::VERSION );
+		wp_enqueue_script( $this->plugin_slug . '-moment', plugins_url( 'assets/js/vendor/moment/moment.js', __FILE__ ), array(), self::VERSION );
+		wp_enqueue_script( $this->plugin_slug . '-bootstrap-daterangepicker', plugins_url( 'assets/js/vendor/bootstrap-daterangepicker/bootstrap-daterangepicker.js', __FILE__ ), array($this->plugin_slug . '-bootstrap', $this->plugin_slug . '-moment'), self::VERSION );
+		wp_enqueue_script( $this->plugin_slug . '-due_date', plugins_url( 'assets/js/due_date.js', __FILE__ ), array( 'jquery', $this->plugin_slug . '-bootstrap-daterangepicker' ), self::VERSION );
 		wp_localize_script( $this->plugin_slug . '-plugin-script', 'nervetask', array(
 			'ajaxurl'	=> admin_url( 'admin-ajax.php' )
 		) );

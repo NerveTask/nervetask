@@ -83,9 +83,7 @@
 	<div class="form-group">
 		<label class="control-label" for="nervetask-new-task-due-date">Due Date</label>
 		<div class="control-input">
-			<input type="text" class="form-control" id="nervetask-new-task-due-date-visible" name="nervetask-new-task-due-date-visible"></input>
-			<input type="hidden" id="nervetask-new-task-due-date" name="nervetask_due_date"></input>
-			<p id="nervetask-new-task-due-date-feedback" class="display-date"></p>
+			<input type="text" class="form-control" id="nervetask-new-task-due-date" name="nervetask_due_date"></input>
 		</div>
 	</div>
 
