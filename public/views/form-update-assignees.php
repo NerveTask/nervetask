@@ -29,9 +29,8 @@
 		<?php if ( ! empty( $assigned_user_query->results ) ) { ?>
 			<strong>Assigned to:
 			<span class="assigned">
-			<?php foreach ( $assigned_user_query->results as $user ) { $user = get_user_by( 'id', $user ); ?>
-				<a href="'<?php echo get_author_posts_url( $user->ID ); ?>"><?php echo esc_html( $user->display_name ); ?></a>
-			<?php } ?>
+			<?php foreach ( $assigned_user_query->results as $user ) { $user = get_user_by( 'id', $user ); if( isset( $prefix ) ) { echo $prefix; } ?>
+				<a href="<?php echo get_author_posts_url( $user->ID ); ?>"><?php echo esc_html( $user->display_name ); ?></a><?php $prefix = ', '; } ?>
 			</span>
 			</strong>
 		<?php } else { ?>

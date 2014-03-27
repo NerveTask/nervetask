@@ -1,6 +1,6 @@
 <?php
 
-	$categories = get_terms( 'nervetask_category', array( 'hide_empty' => 0, 'orderby' => 'slug' ) );
+	$categories = get_terms( 'nervetask_category', array( 'hide_empty' => 0 ) );
 	$assigned_categories = wp_get_object_terms( get_the_ID(), 'nervetask_category', array( 'fields' => 'ids' ) );
 ?>
 
@@ -31,7 +31,7 @@
 
 			<div class="control-input">
 
-				<select multiple="multiple" size="11" name="category[]" class="chosen-select">
+				<select size="11" name="category[]" class="chosen-select">
 
 				<?php foreach ( $categories as $category ) { ?>
 
@@ -42,7 +42,7 @@
 						$selected = false;
 					}
 					?>
-					<option value ="<?php echo $category->term_id; ?>"<?php echo $selected; ?>><?php echo $category->name; ?></option>
+					<option value="<?php echo $category->term_id; ?>"<?php echo $selected; ?>><?php echo $category->name; ?></option>
 
 				<?php } ?>
 				</select>

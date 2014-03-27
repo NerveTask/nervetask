@@ -308,7 +308,7 @@ class NerveTask {
 			'labels' => $task_labels,
 			'hierarchical' => true,
 			'supports' => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'custom-fields', 'comments', 'revisions', 'page-attributes', 'discussion' ),
-			'taxonomies' => array( 'post_tag', 'nervetask_status', 'nervetask_priority' ),
+			'taxonomies' => array( 'nervetask_status', 'nervetask_priority', 'nervetask_category', 'nervetask_tags' ),
 			'public' => true,
 			'show_ui' => true,
 			'show_in_menu' => true,
@@ -394,21 +394,21 @@ class NerveTask {
 		);
 
 		$category_labels = array(
-			'name' => _x( 'Task Categories', 'nervetask' ),
-			'singular_name' => _x( 'Task Category', 'nervetask' ),
-			'search_items' => _x( 'Search Task Categories', 'nervetask' ),
-			'popular_items' => _x( 'Popular Task Categories', 'nervetask' ),
-			'all_items' => _x( 'All Task Categories', 'nervetask' ),
-			'parent_item' => _x( 'Parent Task Category', 'nervetask' ),
-			'parent_item_colon' => _x( 'Parent Task Category:', 'nervetask' ),
-			'edit_item' => _x( 'Edit Task Category', 'nervetask' ),
-			'update_item' => _x( 'Update Task Category', 'nervetask' ),
-			'add_new_item' => _x( 'Add New Task Category', 'nervetask' ),
-			'new_item_name' => _x( 'New Task Category', 'nervetask' ),
-			'separate_items_with_commas' => _x( 'Separate task categories with commas', 'nervetask' ),
-			'add_or_remove_items' => _x( 'Add or remove task categories', 'nervetask' ),
-			'choose_from_most_used' => _x( 'Choose from the most used task categories', 'nervetask' ),
-			'menu_name' => _x( 'Task Categories', 'nervetask' )
+			'name' => _x( 'Categories', 'nervetask' ),
+			'singular_name' => _x( 'Category', 'nervetask' ),
+			'search_items' => _x( 'Search Categories', 'nervetask' ),
+			'popular_items' => _x( 'Popular Categories', 'nervetask' ),
+			'all_items' => _x( 'All Categories', 'nervetask' ),
+			'parent_item' => _x( 'Parent Category', 'nervetask' ),
+			'parent_item_colon' => _x( 'Parent Category:', 'nervetask' ),
+			'edit_item' => _x( 'Edit Category', 'nervetask' ),
+			'update_item' => _x( 'Update Category', 'nervetask' ),
+			'add_new_item' => _x( 'Add Task Category', 'nervetask' ),
+			'new_item_name' => _x( 'New Category', 'nervetask' ),
+			'separate_items_with_commas' => _x( 'Separate categories with commas', 'nervetask' ),
+			'add_or_remove_items' => _x( 'Add or remove categories', 'nervetask' ),
+			'choose_from_most_used' => _x( 'Choose from the most used categories', 'nervetask' ),
+			'menu_name' => _x( 'Categories', 'nervetask' )
 		);
 
 		$category_args = array(
@@ -417,31 +417,31 @@ class NerveTask {
 			'show_in_nav_menus' => true,
 			'show_ui' => true,
 			'show_tagcloud' => true,
-			'hierarchical' => false,
+			'hierarchical' => true,
 			'rewrite' => array(
 				'slug' => 'category',
 				'with_front' => true,
-				'hierarchical' => false
+				'hierarchical' => true
 			),
 			'query_var' => true
 		);
 
 		$tags_labels = array(
-			'name' => _x( 'Task Tags', 'nervetask' ),
-			'singular_name' => _x( 'Task Tag', 'nervetask' ),
-			'search_items' => _x( 'Search Task Tags', 'nervetask' ),
-			'popular_items' => _x( 'Popular Task Tags', 'nervetask' ),
-			'all_items' => _x( 'All Task Tags', 'nervetask' ),
-			'parent_item' => _x( 'Parent Task Tag', 'nervetask' ),
-			'parent_item_colon' => _x( 'Parent Task Tag:', 'nervetask' ),
-			'edit_item' => _x( 'Edit Task Tag', 'nervetask' ),
-			'update_item' => _x( 'Update Task Tag', 'nervetask' ),
-			'add_new_item' => _x( 'Add New Task Tag', 'nervetask' ),
-			'new_item_name' => _x( 'New Task Tag', 'nervetask' ),
-			'separate_items_with_commas' => _x( 'Separate task tags with commas', 'nervetask' ),
-			'add_or_remove_items' => _x( 'Add or remove task tags', 'nervetask' ),
-			'choose_from_most_used' => _x( 'Choose from the most used task tags', 'nervetask' ),
-			'menu_name' => _x( 'Task Tags', 'nervetask' )
+			'name' => _x( 'Tags', 'nervetask' ),
+			'singular_name' => _x( 'Tag', 'nervetask' ),
+			'search_items' => _x( 'Search Tags', 'nervetask' ),
+			'popular_items' => _x( 'Popular Tags', 'nervetask' ),
+			'all_items' => _x( 'All Tags', 'nervetask' ),
+			'parent_item' => _x( 'Parent Tag', 'nervetask' ),
+			'parent_item_colon' => _x( 'Parent Tag:', 'nervetask' ),
+			'edit_item' => _x( 'Edit Tag', 'nervetask' ),
+			'update_item' => _x( 'Update Tag', 'nervetask' ),
+			'add_new_item' => _x( 'Add New Tag', 'nervetask' ),
+			'new_item_name' => _x( 'New Tag', 'nervetask' ),
+			'separate_items_with_commas' => _x( 'Separate tags with commas', 'nervetask' ),
+			'add_or_remove_items' => _x( 'Add or remove tags', 'nervetask' ),
+			'choose_from_most_used' => _x( 'Choose from the most used tags', 'nervetask' ),
+			'menu_name' => _x( 'Tags', 'nervetask' )
 		);
 
 		$tags_args = array(

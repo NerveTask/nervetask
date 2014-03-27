@@ -93,7 +93,7 @@
 
 
 	<div class="form-group">
-		<div class="col-sm-offset-2">
+		<div class="control-input control-submit">
 			<button type="submit" class="btn">Create Task</button>
 		</div>
 	</div>
@@ -106,7 +106,7 @@
 
 <?php } else { ?>
 
-<div class="alert alert-warning">
+<div class="alert alert-warning alert-login-required">
 
 	You must be logged in to create new tasks.
 	

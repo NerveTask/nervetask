@@ -363,13 +363,15 @@ class NerveTask_Task {
 				'connected_items' => $post_id
 			)
 		);
+		$comment = get_comments( array( 'post_id' => $post_id, 'number' => 1 ) );
 
 		// If the assignee updated succesffully
 		if ( !empty( $users ) ) {
 			$output = array(
 				'status'	=> 'success',
 				'message'	=> __('Success!'),
-				'users'		=> $users
+				'users'		=> $users,
+				'comment'	=> $comment
 			);
 		} else {
 			$output = __( 'There was an error while creating a new task. Please refresh the page and try again.', 'nervetask' );
@@ -410,11 +412,13 @@ class NerveTask_Task {
 		if ( $result ) {
 
 			$terms = get_the_terms( $post_id, 'nervetask_status' );
+			$comment = get_comments( array( 'post_id' => $post_id, 'number' => 1 ) );
 
 			$output = array(
 				'status'	=> 'success',
 				'message'	=> __('Success!'),
-				'terms'		=> $terms
+				'terms'		=> $terms,
+				'comment'	=> $comment
 			);
 
 		} else {
@@ -456,11 +460,13 @@ class NerveTask_Task {
 		if ( $result ) {
 
 			$terms = get_the_terms( $post_id, 'nervetask_priority' );
+			$comment = get_comments( array( 'post_id' => $post_id, 'number' => 1 ) );
 
 			$output = array(
 				'status'	=> 'success',
 				'message'	=> __('Success!'),
-				'terms'		=> $terms
+				'terms'		=> $terms,
+				'comment'	=> $comment
 			);
 
 		} else {
@@ -502,11 +508,13 @@ class NerveTask_Task {
 		if ( $result ) {
 
 			$terms = get_the_terms( $post_id, 'nervetask_category' );
+			$comment = get_comments( array( 'post_id' => $post_id, 'number' => 1 ) );
 
 			$output = array(
 				'status'	=> 'success',
 				'message'	=> __('Success!'),
-				'terms'		=> $terms
+				'terms'		=> $terms,
+				'comment'	=> $comment
 			);
 
 		} else {
@@ -544,12 +552,14 @@ class NerveTask_Task {
 		// If the tags saved succesffully
 		if ( $result ) {
 
-			$terms = get_the_terms( $post_id, 'nervetask_category' );
+			$terms = get_the_terms( $post_id, 'nervetask_tags' );
+			$comment = get_comments( array( 'post_id' => $post_id, 'number' => 1 ) );
 
 			$output = array(
 				'status'	=> 'success',
 				'message'	=> __('Success!'),
-				'terms'		=> $terms
+				'terms'		=> $terms,
+				'comment'	=> $comment
 			);
 
 		} else {
@@ -591,11 +601,13 @@ class NerveTask_Task {
 		if ( $result ) {
 
 			$due_date = get_post_meta( $post_id, 'nervetask_due_date' );
+			$comment = get_comments( array( 'post_id' => $post_id, 'number' => 1 ) );
 
 			$output = array(
 				'status'	=> 'success',
 				'message'	=> __('Success!'),
-				'due_date'		=> $due_date
+				'due_date'		=> $due_date,
+				'comment'	=> $comment
 			);
 
 		} else {

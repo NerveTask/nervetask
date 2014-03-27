@@ -31,6 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 require_once( plugin_dir_path( __FILE__ ) . 'public/class-nervetask.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'public/includes/class-task.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'public/includes/class-comments.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'public/includes/class-widgets.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'public/includes/shortcodes.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'public/includes/class-status-colors.php' );
@@ -44,6 +45,7 @@ register_deactivation_hook( __FILE__, array( 'NerveTask', 'deactivate' ) );
 
 add_action( 'plugins_loaded', array( 'NerveTask', 'get_instance' ) );
 add_action( 'plugins_loaded', array( 'NerveTask_Task', 'get_instance' ) );
+add_action( 'plugins_loaded', array( 'NerveTask_Comments', 'get_instance' ) );
 add_action( 'plugins_loaded', array( 'NerveTask_Status_Colors', 'get_instance' ) );
 
 /*----------------------------------------------------------------------------*

@@ -15,9 +15,6 @@ class NerveTask_Install {
 	 */
 	public function __construct() {
 		
-		$nervetask = new NerveTask();
-		$nervetask->register();
-		
 		add_action( 'init', array( $this, 'default_terms' ) );
 		add_action( 'init', array( $this, 'default_email' ) );
 		add_action( 'init', array( $this, 'cron' ), 11 );
