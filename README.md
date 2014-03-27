@@ -31,4 +31,20 @@ Get involved in the **planning, discussion, and road-mapping** by participating 
 
 Or fork the repository and submit pull requests!
 
+## Pulling from upstream
+
+Add upstream:
+
+    git add remote add upstream git@github.com:NerveTask/nervetask.git
+
+Make a local branch to manage upstream merges:
+
+    git checkout -b upstream
+    git fetch upstream
+    git merge upstream/master
+
+
+
+
+
 [NerveTask Plugin Trello Board]: https://trello.com/b/sV78jSZh/nervetask
