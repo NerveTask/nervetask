@@ -67,8 +67,7 @@ class NerveTask_Status_Colors {
 			'desc'        => __( 'Should these colors be applied to the text color, or background color?', 'nervetask_colors' ),
 			'type'        => 'select',
 			'options'     => array(
-				'background' => __( 'Background', 'nervetask_colors' ),
-				'text'       => __( 'Text', 'nervetask_colors' )
+				'background' => __( 'Background', 'nervetask_colors' )
 			)
 		);
 
@@ -97,7 +96,7 @@ class NerveTask_Status_Colors {
 		foreach ( $terms as $term ) {
 			$what = 'background' == get_option( 'nervetask_status_what_color' ) ? 'background-color' : 'color';
 
-			printf( ".nervetask-status.nervetask-status-term-%s, .nervetask-status.nervetask-status-%s { %s: %s; } \n", $term->term_id, $term->slug, $what, get_option( 'nervetask_status_' . $term->term_id . '_color', '#fff' ) );
+			printf( ".nervetask-status.nervetask-status-term-%s, .nervetask-status.nervetask-status-%s { background: %s; } \n", $term->term_id, $term->slug, get_option( 'nervetask_status_' . $term->term_id . '_color', '#fff' ) );
 		}
 
 		echo "</style>\n";
