@@ -30,7 +30,7 @@
 
 			<div class="control-input">
 
-				<input name="nervetask_due_date" class="form-control" value="<?php echo $due_date->format('Y-m-d H:i:s'); ?>"/>
+				<input id="nervetask-update-task-due-date" name="nervetask_due_date" class="form-control" value="<?php echo $due_date->format('Y-m-d H:i:s'); ?>"/>
 
 			</div>
 
