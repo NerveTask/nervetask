@@ -591,15 +591,14 @@ class NerveTask_Task {
 		$due_date	= $data['nervetask_due_date'];
 		$post_id	= $data['post_id'];
 		
-		// Validates the due date ISO 8061 format by trying to recreate the date
 		$due_date = new DateTime($due_date);
 
-		// Update the meta
-		$result = update_post_meta( $post_id, 'nervetask_due_date', $due_date );
+		$updated = update_post_meta( $post_id, 'nervetask_due_date', $due_date );
 
 		// If the meta saved successfully
-		if ( $result ) {
+		if ( $updated ) {
 
+<<<<<<< HEAD
 			$due_date = get_post_meta( $post_id, 'nervetask_due_date' );
 			$comment = get_comments( array( 'post_id' => $post_id, 'number' => 1 ) );
 
@@ -608,6 +607,14 @@ class NerveTask_Task {
 				'message'	=> __('Success!'),
 				'due_date'		=> $due_date,
 				'comment'	=> $comment
+=======
+			$updated = get_post_meta( $post_id, 'nervetask_due_date' );
+
+			$output = array(
+				'status' => 'success',
+				'message' => __('Success!'),
+				'due_date' => $updated
+>>>>>>> c668a06a9b8b741847517ec766e8e17aa547ebe5
 			);
 
 		} else {
