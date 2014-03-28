@@ -14,7 +14,8 @@
 		<?php if ( $due_date ) { ?>
 			<strong>Due Date:
 			<span class="task-due_date">
-				<?php echo $due_date->format('Y-m-d H:i:s'); ?>
+				<?php echo $due_date->format(get_option('date_format')); ?> at <?php echo $due_date->format(get_option('time_format')); ?>
+
 			</span>
 			</strong>
 		<?php } else { ?>
