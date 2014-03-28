@@ -23,13 +23,11 @@
 
 	<div class="collapse" id="task-meta-due_date-options">
 
-	<?php if ( $due_date ) { ?>
-
 		<div class="form-group">
 
 			<div class="control-input">
 
-				<input id="nervetask-update-task-due-date" name="nervetask_due_date" class="form-control" value="<?php echo $due_date->format('Y-m-d H:i:s'); ?>"/>
+				<input id="nervetask-update-task-due-date" name="nervetask_due_date" class="form-control" value="<?php if( $due_date ) { echo $due_date->format(get_option('date_format')); ?> at <?php echo $due_date->format(get_option('time_format')); } ?>"/>
 
 			</div>
 
@@ -40,8 +38,6 @@
 				<button type="submit" class="btn btn-block">Update</button>
 			</div>
 		</div>
-
-	<?php } ?>
 
 	</div>
 
