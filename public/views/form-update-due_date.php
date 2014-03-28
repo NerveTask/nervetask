@@ -7,8 +7,6 @@
 	<div>
 		<?php if( current_user_can( 'edit_posts' ) ) { ?>
 			<a type="button" data-toggle="collapse" data-target="#task-meta-due_date-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
-		<?php } else { ?>
-			<span>Can't edit :(</span>
 		<?php } ?>
 
 		<?php if ( $due_date ) { ?>
