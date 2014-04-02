@@ -34,6 +34,7 @@ class NerveTask_Comments {
 
 		add_action( 'set_object_terms', array( $this, 'updated_terms_comment' ), 10, 6 );
 		add_action( 'updated_post_meta', array( $this, 'updated_post_meta' ), 10, 4 );
+		add_action( 'p2p_created_connection', array( $this, 'updated_assignees' ), 10, 1 );
 		add_action( 'save_post', array( $this, 'updated_post_comment' ), 10, 1 );
 		add_action( 'wp_insert_comment', array( $this, 'new_comment' ), 10, 2 );
 
@@ -172,7 +173,6 @@ class NerveTask_Comments {
 	 * @since    0.1.0
 	 */
 	public function updated_post_comment( $object_id ) {
-		die(print_r( $object_id ));
 		
 		$current_user = wp_get_current_user();
 		$post = get_post( $object_id );
@@ -231,6 +231,71 @@ class NerveTask_Comments {
 
 	}
 
+	/**
+	 * Adds a comment when a task's assignees are updated.
+	 *
+	 * @since    0.1.0
+	 */
+	public function updated_assignees( $p2p_id ) {
+		
+		$current_user = wp_get_current_user();
+
+		$connection = p2p_get_connection( $p2p_id );
+
+		if ( 'nervetask_to_user' == $connection->p2p_type ) {
+
+			$user_query = new WP_User_Query(
+				array(
+					'fields' => array(
+						'ID',
+						'display_name'
+					)
+				)
+			);
+
+			// Query for users based on the meta data
+			$assigned_user_query = new WP_User_Query(
+				array(
+					'fields'			=> 'ID',
+					'connected_type'	=> 'nervetask_to_user',
+					'connected_items'	=> $connection->p2p_from
+				)
+			);
+			
+			$assigned_users = '';
+			foreach ( $assigned_user_query->results as $user ) {
+				$user = get_user_by( 'id', $user );
+				if( isset( $prefix ) ) {
+					$assigned_users .= $prefix;
+				}
+				$assigned_users .= esc_html( $user->display_name );
+				$prefix = ', ';
+			}
+			
+			$data = array(
+				'comment_author' => $current_user -> display_name,
+				'comment_author_email' => $current_user -> user_email,
+				'comment_content' => 'updated the assignee(s) to <strong>'. $assigned_users .'</strong>',
+				'comment_post_ID' => $connection->p2p_from,
+				'comment_type' =>'status'
+			);
+			
+			$comment_id = wp_insert_comment( $data );
+
+			if( $comment_id ) {
+
+				$statuses = get_the_terms( $connection->p2p_from, 'nervetask_status' );
+
+				$comment_meta = update_comment_meta( $comment_id, 'nervetask_status', $statuses );
+
+			}
+
+			return $comment_id;
+			
+		}
+
+	}
+	
 	/**
 	 * Updates the comment meta when a new comment is inserted.
 	 *
