@@ -587,26 +587,29 @@ class NerveTask_Task {
 			$output = __( 'You don\'t have proper permissions to update the due date of this task. :(', 'nervetask' );
 			return $output;
 		}
-
-		$due_date	= $data['nervetask_due_date'];
+		
 		$post_id	= $data['post_id'];
 		
-		// Validates the due date ISO 8061 format by trying to recreate the date
-		$due_date = new DateTime($due_date);
+		$meta_value = array(
+			'due_date'	=> $data['nervetask_due_date'],
+			'timestamp'	=> new DateTime()
+		);
 
 		// Update the meta
-		$result = update_post_meta( $post_id, 'nervetask_due_date', $due_date );
+		$result = update_post_meta( $post_id, 'nervetask_due_date', json_encode( $meta_value ) );
 
 		// If the meta saved successfully
 		if ( $result ) {
 
-			$due_date = get_post_meta( $post_id, 'nervetask_due_date' );
+			$due_date_object = get_post_meta( $post_id, 'nervetask_due_date', true );
+			$due_date_object_decoded = json_decode( $due_date_object );
+			$due_date = new DateTime( $due_date_object_decoded->due_date );
 			$comment = get_comments( array( 'post_id' => $post_id, 'number' => 1 ) );
 
 			$output = array(
 				'status'	=> 'success',
-				'message'	=> __('Success!'),
-				'due_date'		=> $due_date,
+				'message'	=> __( 'Success!' ),
+				'due_date'	=> $due_date,
 				'comment'	=> $comment
 			);
 

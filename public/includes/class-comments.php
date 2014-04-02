@@ -33,6 +33,7 @@ class NerveTask_Comments {
 	private function __construct() {
 
 		add_action( 'set_object_terms', array( $this, 'updated_terms_comment' ), 10, 6 );
+		add_action( 'updated_post_meta', array( $this, 'updated_post_meta' ), 10, 4 );
 		add_action( 'save_post', array( $this, 'updated_post_comment' ), 10, 1 );
 		add_action( 'wp_insert_comment', array( $this, 'new_comment' ), 10, 2 );
 
@@ -124,7 +125,54 @@ class NerveTask_Comments {
 	 *
 	 * @since    0.1.0
 	 */
+	public function updated_post_meta( $meta_id, $post_id, $meta_key, $meta_value ) {
+
+		$current_user = wp_get_current_user();
+		$post = get_post( $post_id );
+
+		if( empty( $post ) ) {
+			return;
+		}
+		
+		if ( 'nervetask' != get_post_type( $post ) ) {
+			return;
+		}
+		
+		if( 'nervetask_due_date' == $meta_key ) {
+
+			$data = array(
+				'comment_author' => $current_user -> display_name,
+				'comment_author_email' => $current_user -> user_email,
+				'comment_content' => ' updated the due date to <strong>'. $_POST['nervetask_due_date'] .'</strong>',
+				'comment_post_ID' => $post_id,
+				'comment_type' =>'status'
+			);
+
+			$comment_id = wp_insert_comment( $data );
+
+			if( $comment_id ) {
+
+				$statuses = get_the_terms( $post_id, 'nervetask_status' );
+
+				$comment_meta = update_comment_meta( $comment_id, 'nervetask_status', $statuses );
+
+			}
+
+			return $comment_id;
+
+		} else {
+			return;
+		}
+
+	}
+	
+	/**
+	 * Adds a comment when a task's content is updated.
+	 *
+	 * @since    0.1.0
+	 */
 	public function updated_post_comment( $object_id ) {
+		die(print_r( $object_id ));
 		
 		$current_user = wp_get_current_user();
 		$post = get_post( $object_id );
@@ -137,23 +185,37 @@ class NerveTask_Comments {
 			return;
 		}
 
-		$revisions = wp_get_post_revisions($post->ID, array( 'posts_per_page' => 1 ) );
+		if( 'nervetask_update_due_date' == $_POST['controller'] ) {
 
-		foreach( $revisions as $revision ) {
-			$revision_id = $revision->ID;
-		}
+			$data = array(
+				'comment_author' => $current_user -> display_name,
+				'comment_author_email' => $current_user -> user_email,
+				'comment_content' => 'updated the due date to <strong>'. $_POST['nervetask_due_date'] .'</strong>',
+				'comment_post_ID' => $object_id,
+				'comment_type' =>'status'
+			);
+
+		} else {
 		
-		if( empty( $revision_id ) ) {
-			return;
-		}
+			$revisions = wp_get_post_revisions($post->ID, array( 'posts_per_page' => 1 ) );
 
-		$data = array(
-			'comment_author' => $current_user -> display_name,
-			'comment_author_email' => $current_user -> user_email,
-			'comment_content' => 'updated the task content - <a href="'. esc_url( admin_url( 'revision.php?revision='. $revision_id ) ) .'">revisions</a>',
-			'comment_post_ID' => $object_id,
-			'comment_type' =>'status'
-		);
+			foreach( $revisions as $revision ) {
+				$revision_id = $revision->ID;
+			}
+
+			if( empty( $revision_id ) ) {
+				return;
+			}
+
+			$data = array(
+				'comment_author' => $current_user -> display_name,
+				'comment_author_email' => $current_user -> user_email,
+				'comment_content' => 'updated the task content - <a href="'. esc_url( admin_url( 'revision.php?revision='. $revision_id ) ) .'">revisions</a>',
+				'comment_post_ID' => $object_id,
+				'comment_type' =>'status'
+			);
+			
+		}
 
 		$comment_id = wp_insert_comment( $data );
 

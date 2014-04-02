@@ -72,6 +72,10 @@
 		$('.nervetask-update-tags').submit(function (e) {
 			nervetaskAjax(this, e, 'nervetask-update-tags');
 		});
+		
+		$('.nervetask-update-due-date').submit(function (e) {
+			nervetaskAjax(this, e, 'nervetask-update-due-date');
+		});
 
 		function nervetaskUpdateContentHandler(e) {
 
