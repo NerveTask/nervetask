@@ -2,7 +2,13 @@
 	global $post;
 	$due_date_object = get_post_meta( $post->ID, 'nervetask_due_date', true );
 	$due_date_object_decoded = json_decode( $due_date_object );
-	$due_date = new DateTime($due_date_object_decoded->due_date);
+
+	if( $due_date_object_decoded ) {
+		$due_date = new DateTime($due_date_object_decoded->due_date);
+		$due_date = $due_date->format(get_option('date_format')) .' '. $due_date->format(get_option('time_format'));
+	} else {
+		$due_date = '';
+	}
 ?>
 
 <form class="nervetask-update-due-date form-horizontal" role="form" method="post">
@@ -14,11 +20,11 @@
 		<?php if ( $due_date_object_decoded ) { ?>
 			<strong>Due Date:
 			<span class="task-due-date">
-				<?php echo $due_date->format(get_option('date_format')); ?> at <?php echo $due_date->format(get_option('time_format')); ?>
+				<?php echo $due_date; ?>
 			</span>
 			</strong>
 		<?php } else { ?>
-			<span class="task-due_date">There is no assigned due date</span>
+			<span class="task-due-date">There is no assigned due date</span>
 		<?php } ?>
 	</div>
 
