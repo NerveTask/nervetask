@@ -4,8 +4,12 @@
 	$due_date_object_decoded = json_decode( $due_date_object );
 
 	if( $due_date_object_decoded ) {
-		$due_date = new DateTime($due_date_object_decoded->due_date);
-		$due_date = $due_date->format(get_option('date_format')) .' '. $due_date->format(get_option('time_format'));
+		if( $due_date_object_decoded->due_date ) {
+			$due_date = new DateTime($due_date_object_decoded->due_date);
+			$due_date = $due_date->format(get_option('date_format')) .' '. $due_date->format(get_option('time_format'));
+		} else {
+			$due_date = '';
+		}
 	} else {
 		$due_date = '';
 	}
@@ -17,7 +21,7 @@
 			<a type="button" data-toggle="collapse" data-target="#task-meta-due-date-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
 		<?php } ?>
 
-		<?php if ( $due_date_object_decoded ) { ?>
+		<?php if ( $due_date != '' ) { ?>
 			<strong>Due Date:
 			<span class="task-due-date">
 				<?php echo $due_date; ?>
