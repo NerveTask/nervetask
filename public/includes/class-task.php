@@ -156,19 +156,18 @@ class NerveTask_Task {
 		} else {
 			$post_content = '';
 		}
-		$post_status	= 'publish';
+
 		if( isset( $data['nervetask-new-task-title'] ) ) {
 			$post_title = $data['nervetask-new-task-title'];
 		} else {
 			$post_title = '';
 		}
-		$post_type		= 'nervetask';
 
 		$args = array(
 			'post_content'	=> wp_kses_post( $post_content ),
-			'post_status'	=> $post_status,
-			'post_title'	=> sanitize_text_field( $post_title ),
-			'post_type'		=> sanitize_title( $post_type ),
+			'post_status'	=> 'publish',
+			'post_title'	=> sanitize_title( $post_title ),
+			'post_type'		=> 'nervetask',
 		);
 
 		// Insert the new task and get its ID
