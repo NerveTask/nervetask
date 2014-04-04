@@ -209,11 +209,11 @@ class NerveTask_Task {
 
 		// Set the task's due date
 		if( isset( $data['nervetask_due_date'] ) ) {
-			$due_date = $data['nervetask_due_date'];
-
-			// Validates the due date ISO 8061 format by trying to recreate the date
-			$due_date = new DateTime($due_date);
-			update_post_meta( $post_id, 'nervetask_due_date', $due_date );
+			$due_date = array(
+				'due_date'	=> $data['nervetask_due_date'],
+				'timestamp'	=> new DateTime()
+			);
+			update_post_meta( $post_id, 'nervetask_due_date', json_encode( $due_date ) );
 		}
 
 		// If the task inserted succesffully
