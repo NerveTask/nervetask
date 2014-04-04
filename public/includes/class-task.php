@@ -134,7 +134,16 @@ class NerveTask_Task {
 			return;
 		}
 
-		check_ajax_referer( 'nervetask_new_task', 'security' );
+		if ( ! wp_verify_nonce( $data['security'], 'nervetask_new_task' ) ) {
+			die(
+				json_encode(
+					array(
+						'success' => false,
+						'message' => __( 'Something is wrong with your session. Try logging out and logging back in.' )
+					)
+				)
+			);
+		}
 
 		// If the current user can't publish posts stop
 		if ( !current_user_can('publish_posts') ) {
