@@ -51,15 +51,23 @@ class NerveTask_Settings {
 	 * @return void
 	 */
 	protected function init_settings() {
-		// Prepare roles option
-		$roles         = get_editable_roles();
-		$account_roles = array();
-
-		foreach ( $roles as $key => $role ) {
-			if ( $key == 'administrator' ) {
-				continue;
+		
+		// Prepare status options
+		$status_options = array();
+		$statuses = get_terms( 'nervetask_status', array( 'hide_empty' => 0 ) );
+		if ( !empty( $statuses ) && !is_wp_error( $statuses ) ) {
+			foreach ( $statuses as $key => $status ) {
+				$status_options[ $status->slug ] = $status->name;
 			}
-			$account_roles[ $key ] = $role['name'];
+		}
+		
+		// Prepare priority options
+		$priority_options = array();
+		$priorities = get_terms( 'nervetask_priority', array( 'hide_empty' => 0 ) );
+		if ( !empty( $priorities ) && !is_wp_error( $priorities ) ) {
+			foreach ( $priorities as $key => $priority ) {
+				$priority_options[ $priority->slug ] = $priority->name;
+			}
 		}
 
 		$this->settings = apply_filters( 'nervetask_settings',
@@ -75,8 +83,25 @@ class NerveTask_Settings {
 							'desc'        => __( 'If enabled, task will not be visible to the public. Uusers will be required to login.', 'nervetask' ),
 							'type'        => 'checkbox',
 							'attributes'  => array()
+						),
+						array(
+							'name'        => 'nervetask_default_status',
+							'std'         => 'new',
+							'label'       => __( 'Default status', 'nervetask' ),
+							'desc'        => __( 'Select a default status that will be assigned to each new task.', 'nervetask' ),
+							'type'        => 'select',
+							'options'     => $status_options
+						),
+						array(
+							'name'        => 'nervetask_default_priority',
+							'std'         => 'normal',
+							'label'       => __( 'Default priority', 'nervetask' ),
+							'desc'        => __( 'Select a default priority that will be assigned to each new task.', 'nervetask' ),
+							'type'        => 'select',
+							'options'     => $priority_options
 						)
-					)
+					),
+					
 				)
 			)
 		);
