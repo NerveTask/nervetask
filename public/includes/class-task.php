@@ -173,7 +173,7 @@ class NerveTask_Task {
 		// Insert the new task and get its ID
 		$post_id = wp_insert_post( $args );
 
-		// TODO: Retrieve default status, priority, etc. from stored options
+		// Set the task category
 		if( isset( $data['nervetask_category'] ) ) {
 
 			$categories = $data['nervetask_category'];
@@ -183,7 +183,7 @@ class NerveTask_Task {
 			
 		}
 
-		// Set the user's priority or the default if not sent
+		// Set the task priority
 		if( isset( $data['nervetask_priority'] ) ) {
 
 			$priorities = $data['nervetask_priority'];
@@ -192,10 +192,13 @@ class NerveTask_Task {
 			wp_set_post_terms( $post_id, $priorities,	'nervetask_priority' );
 			
 		} else {
-			wp_set_post_terms( $post_id, 'normal', 'nervetask_priority' );
+			$default_priority = get_option( 'nervetask_default_priority' );
+			if( isset( $default_priority ) ) {
+				wp_set_post_terms( $post_id, $default_priority, 'nervetask_priority' );
+			}
 		}
 
-		// Set the user's status or the default if not sent
+		// Set the task status
 		if( isset( $data['nervetask_status'] ) ) {
 			
 			$statuses = $data['nervetask_status'];
@@ -204,15 +207,26 @@ class NerveTask_Task {
 			wp_set_post_terms( $post_id, $statuses,	'nervetask_status' );
 			
 		} else {
-			wp_set_post_terms( $post_id, 'new', 'nervetask_status' );
+			$default_status = get_option( 'nervetask_default_status' );
+			if( isset( $default_status ) ) {
+				wp_set_post_terms( $post_id, $default_status, 'nervetask_status' );
+			}
 		}
 
-		// Set the task's due date
-		if( isset( $data['nervetask_due_date'] ) ) {
+		// Set the task due date
+		if( isset( $data['nervetask_due_date'] ) && ! empty( $data['nervetask_due_date'] ) ) {
+			
+			$date = DateTime::createFromFormat( 'm/d/Y h:m a', $data['nervetask_due_date'] );
+			$date_errors = DateTime::getLastErrors();
+			if ($date_errors['warning_count'] + $date_errors['error_count'] > 0) {
+				$errors[] = 'Some useful error message goes here.';
+			}
+			die(json_encode($date_errors));
 			$due_date = array(
-				'due_date'	=> $data['nervetask_due_date'],
+				'due_date'	=> $date,
 				'timestamp'	=> new DateTime()
 			);
+
 			update_post_meta( $post_id, 'nervetask_due_date', json_encode( $due_date ) );
 		}
 
