@@ -11,6 +11,7 @@
         };
         $('#nervetask-new-task-due-date').daterangepicker(options);
         $('#nervetask-update-task-due-date').daterangepicker(options);
+		$('.daterangepicker').css('display', 'none');
         // // var el = $('.nervetask-due-date');
         // var input = $('#nervetask-new-task-due-date-visible');
         // var output = $('#nervetask-new-task-due-date-feedback');
