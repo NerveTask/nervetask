@@ -17,8 +17,8 @@
 			<?php } ?>
 			
 		<?php } else { ?>
-			<?php _e( 'None', 'nervetask' ); ?>
 			<?php if( current_user_can( 'edit_posts' ) ) { ?><a type="button" data-toggle="collapse" data-target="#task-meta-category-options" href="#"><?php }?>
+			<?php _e( 'None', 'nervetask' ); ?>
 			<?php if( current_user_can( 'edit_posts' ) ) { ?></a><?php }?>
 		<?php } ?>
 		</span></strong>
