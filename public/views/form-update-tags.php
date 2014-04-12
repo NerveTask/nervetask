@@ -7,22 +7,24 @@
 <form class="nervetask-update-tags form-horizontal" role="form" method="post">
 
 	<div>
-		<?php if( current_user_can( 'edit_posts' ) ) { ?>
-			<a type="button" data-toggle="collapse" data-target="#task-meta-tags-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
-		<?php } ?>
+		<strong><?php _e( 'Tags', 'nervetask' ); ?></strong>:
+		<strong><span class="task-tags">
 		<?php if ( ! empty( $assigned_tags ) ) { ?>
-			<strong>Tags:
-			<span class="task-tags">
 			<?php foreach ( $assigned_tags as $tag ) { $tag = get_term_by( 'id', $tag, 'nervetask_tags' ); if( isset( $prefix ) ) { echo $prefix; } ?>
-				<a href="<?php echo home_url( '/?nervetask_tags='. $tag->slug ); ?>"><?php echo esc_html( $tag->name ); ?></a><?php $prefix = ', '; } ?>
-			</span>
-			</strong>
+				<?php if( current_user_can( 'edit_posts' ) ) { ?><a type="button" data-toggle="collapse" data-target="#task-meta-tag-options" href="#"><?php } ?>
+					<?php echo esc_html( $tag->name ); ?>
+				<?php if( current_user_can( 'edit_posts' ) ) { ?></a><?php } ?><?php $prefix = ', '; ?>
+			<?php } ?>
+			
 		<?php } else { ?>
-			<span class="task-tags">There are no assigned tags</span>
+			<?php if( current_user_can( 'edit_posts' ) ) { ?><a type="button" data-toggle="collapse" data-target="#task-meta-tag-options" href="#"><?php }?>
+			<?php _e( 'None', 'nervetask' ); ?>
+			<?php if( current_user_can( 'edit_posts' ) ) { ?></a><?php }?>
 		<?php } ?>
+		</span></strong>
 	</div>
 
-	<div class="collapse" id="task-meta-tags-options">
+	<div class="collapse" id="task-meta-tag-options">
 
 		<div class="form-group">
 

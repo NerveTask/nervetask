@@ -7,20 +7,21 @@
 <form class="nervetask-update-category form-horizontal" role="form" method="post">
 
 	<div>
-		<?php if( current_user_can( 'edit_posts' ) ) { ?>
-			<a type="button" data-toggle="collapse" data-target="#task-meta-category-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
-		<?php } ?>
+		<strong><?php _e( 'Category', 'nervetask' ); ?></strong>:
+		<strong><span class="task-category">
 		<?php if ( ! empty( $assigned_categories ) ) { ?>
-			<strong>Category:
-			<span class="task-category">
 			<?php foreach ( $assigned_categories as $category ) { $category = get_term_by( 'id', $category, 'nervetask_category' );  ?>
-				<a href="<?php echo home_url( '/?nervetask_category='. $category->slug ); ?>"><?php echo esc_html( $category->name ); ?></a>
+				<?php if( current_user_can( 'edit_posts' ) ) { ?><a type="button" data-toggle="collapse" data-target="#task-meta-category-options" href="#"><?php } ?>
+					<?php echo esc_html( $category->name ); ?>
+				<?php if( current_user_can( 'edit_posts' ) ) { ?></a><?php } ?>
 			<?php } ?>
-			</span>
-			</strong>
+			
 		<?php } else { ?>
-			<span class="task-category">There is no assigned category</span>
+			<?php _e( 'None', 'nervetask' ); ?>
+			<?php if( current_user_can( 'edit_posts' ) ) { ?><a type="button" data-toggle="collapse" data-target="#task-meta-category-options" href="#"><?php }?>
+			<?php if( current_user_can( 'edit_posts' ) ) { ?></a><?php }?>
 		<?php } ?>
+		</span></strong>
 	</div>
 
 	<div class="collapse" id="task-meta-category-options">

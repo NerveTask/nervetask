@@ -23,19 +23,19 @@
 <form class="nervetask-update-assignees form-horizontal" role="form" method="post">
 
 	<div>
-		<?php if( current_user_can( 'edit_posts' ) ) { ?>
-			<a type="button" data-toggle="collapse" data-target="#task-meta-assignees-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
-		<?php } ?>
+		<strong><?php _e( 'Assigned to', 'nervetask' ); ?></strong>:
+		<strong><span class="task-assigned">
 		<?php if ( ! empty( $assigned_user_query->results ) ) { ?>
-			<strong>Assigned to:
-			<span class="assigned">
 			<?php foreach ( $assigned_user_query->results as $user ) { $user = get_user_by( 'id', $user ); if( isset( $prefix ) ) { echo $prefix; } ?>
-				<a href="<?php echo get_author_posts_url( $user->ID ); ?>"><?php echo esc_html( $user->display_name ); ?></a><?php $prefix = ', '; } ?>
-			</span>
-			</strong>
+				<?php if( current_user_can( 'edit_posts' ) ) { ?><a type="button" data-toggle="collapse" data-target="#task-meta-assignees-options" href="#"><?php } ?>
+				<?php echo esc_html( $user->display_name ); ?>
+				<?php if( current_user_can( 'edit_posts' ) ) { ?></a><?php } ?><?php $prefix = ', '; } ?>
 		<?php } else { ?>
-			<span class="assigned">There is no assigned user</span>
+			<?php if( current_user_can( 'edit_posts' ) ) { ?><a type="button" data-toggle="collapse" data-target="#task-meta-assignees-options" href="#"><?php }?>
+			<?php _e( 'None', 'nervetask' ); ?>
+			<?php if( current_user_can( 'edit_posts' ) ) { ?></a><?php }?>
 		<?php } ?>
+		</span></strong>
 	</div>
 
 	<div class="collapse" id="task-meta-assignees-options">

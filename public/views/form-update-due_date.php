@@ -17,19 +17,18 @@
 
 <form class="nervetask-update-due-date form-horizontal" role="form" method="post">
 	<div>
-		<?php if( current_user_can( 'edit_posts' ) ) { ?>
-			<a type="button" data-toggle="collapse" data-target="#task-meta-due-date-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
-		<?php } ?>
-
+		<strong><?php _e( 'Due date', 'nervetask' ); ?></strong>:
+		<strong><span class="task-due-date">
 		<?php if ( $due_date != '' ) { ?>
-			<strong>Due Date:
-			<span class="task-due-date">
+				<?php if( current_user_can( 'edit_posts' ) ) { ?><a type="button" data-toggle="collapse" data-target="#task-meta-due-date-options" href="#"><?php }?>
 				<?php echo $due_date; ?>
-			</span>
-			</strong>
+				<?php if( current_user_can( 'edit_posts' ) ) { ?></a><?php }?>
 		<?php } else { ?>
-			<span class="task-due-date">There is no assigned due date</span>
+			<?php if( current_user_can( 'edit_posts' ) ) { ?><a type="button" data-toggle="collapse" data-target="#task-meta-due-date-options" href="#"><?php }?>
+			<?php _e( 'None', 'nervetask' ); ?>
+			<?php if( current_user_can( 'edit_posts' ) ) { ?></a><?php }?>
 		<?php } ?>
+		</span></strong>
 	</div>
 
 	<div class="collapse" id="task-meta-due-date-options">

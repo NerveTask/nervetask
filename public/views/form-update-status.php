@@ -7,17 +7,16 @@
 <form class="nervetask-update-status form-horizontal" role="form" method="post">
 
 	<div>
-		<?php if( current_user_can( 'edit_posts' ) ) { ?>
-			<a type="button" data-toggle="collapse" data-target="#task-meta-status-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
-		<?php } ?>
 		<?php if ( ! empty( $assigned_statuses ) ) { ?>
-			<strong>Status:
+			<strong>Status</strong>:
 			<span class="task-status">
 			<?php foreach ( $assigned_statuses as $status ) { $status = get_term_by( 'id', $status, 'nervetask_status' );  ?>
-				<a href="<?php echo home_url( '/?nervetask_status='. $status->slug ); ?>"><?php echo esc_html( $status->name ); ?></a>
+				<?php if( current_user_can( 'edit_posts' ) ) { ?><a type="button" data-toggle="collapse" data-target="#task-meta-status-options" href="#"><?php } ?>
+					<strong><?php echo esc_html( $status->name ); ?></strong>
+				<?php if( current_user_can( 'edit_posts' ) ) { ?></a><?php } ?>
 			<?php } ?>
 			</span>
-			</strong>
+			
 		<?php } else { ?>
 			<span class="task-status">There is no assigned status</span>
 		<?php } ?>

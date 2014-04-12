@@ -7,20 +7,22 @@
 <form class="nervetask-update-priority form-horizontal" role="form" method="post">
 
 	<div>
-		<?php if( current_user_can( 'edit_posts' ) ) { ?>
-			<a type="button" data-toggle="collapse" data-target="#task-meta-priority-options" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
-		<?php } ?>
+		<strong><?php _e( 'Priority', 'nervetask' ); ?>:
+		<span class="task-priority">
 		<?php if ( ! empty( $assigned_priorities ) ) { ?>
-			<strong>Priority:
-			<span class="task-priority">
+			
 			<?php foreach ( $assigned_priorities as $priority ) { $priority = get_term_by( 'id', $priority, 'nervetask_priority' );  ?>
-				<a href="<?php echo home_url( '/?nervetask_priority='. $priority->slug ); ?>"><?php echo esc_html( $priority->name ); ?></a>
+				<?php if( current_user_can( 'edit_posts' ) ) { ?><a type="button" data-toggle="collapse" data-target="#task-meta-priority-options" href="#"><?php } ?>
+					<strong><?php echo esc_html( $priority->name ); ?></strong>
+				<?php if( current_user_can( 'edit_posts' ) ) { ?></a><?php } ?>
 			<?php } ?>
-			</span>
-			</strong>
+			
 		<?php } else { ?>
-			<span class="task-priority">There is no assigned priority</span>
+			<?php if( current_user_can( 'edit_posts' ) ) { ?><a type="button" data-toggle="collapse" data-target="#task-meta-priority-options" href="#"><?php }?>
+			<?php _e( 'None', 'nervetask' ); ?>
+			<?php if( current_user_can( 'edit_posts' ) ) { ?></a><?php }?>
 		<?php } ?>
+		</span></strong>
 	</div>
 
 	<div class="collapse" id="task-meta-priority-options">
