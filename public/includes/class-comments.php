@@ -185,7 +185,7 @@ class NerveTask_Comments {
 			return;
 		}
 
-		if( 'nervetask_update_due_date' == $_POST['controller'] ) {
+		if( isset( $_POST['controller'] ) && ('nervetask_update_due_date' == $_POST['controller'] ) ) {
 
 			$data = array(
 				'comment_author' => $current_user -> display_name,
