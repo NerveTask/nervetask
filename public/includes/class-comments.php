@@ -25,8 +25,7 @@ class NerveTask_Comments {
 	protected static $instance = null;
 
 	/**
-	 * Initialize the plugin by setting localization and loading public scripts
-	 * and styles.
+	 * Initialize the comments class.
 	 *
 	 * @since     0.1.0
 	 */
@@ -120,7 +119,7 @@ class NerveTask_Comments {
 		return $comment_id;
 
 	}
-	
+
 	/**
 	 * Adds a comment when a task's content is updated.
 	 *
@@ -166,7 +165,7 @@ class NerveTask_Comments {
 		}
 
 	}
-	
+
 	/**
 	 * Adds a comment when a task's content is updated.
 	 *
@@ -295,7 +294,7 @@ class NerveTask_Comments {
 		}
 
 	}
-	
+
 	/**
 	 * Updates the comment meta when a new comment is inserted.
 	 *
@@ -318,7 +317,7 @@ class NerveTask_Comments {
 		$comment_meta = update_comment_meta( $comment_id, 'nervetask_status', $statuses );
 
 	}
-	
+
 	function status_classes( $classes ) {
 
 		$statuses = get_comment_meta( get_comment_ID(), 'nervetask_status', true );
