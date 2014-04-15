@@ -14,7 +14,6 @@
  */
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-tgm-plugin-activation.php' );
 
-
 /**
  * @package NerveTask_Admin
  * @author  Patrick Daly <patrick@developdaly.com>
@@ -40,7 +39,7 @@ class NerveTask_Admin {
 	protected $plugin_screen_hook_suffix = null;
 
 	/**
-	 * Initialize the plugin by loading admin scripts & styles and adding a
+	 * Initialize the plugin by requiring/recommending plugins and adding a
 	 * settings page and menu.
 	 *
 	 * @since     0.1.0
@@ -50,6 +49,7 @@ class NerveTask_Admin {
 		$plugin = NerveTask::get_instance();
 		$this->plugin_slug = $plugin->get_plugin_slug();
 		
+		// Register required/recommended plugins
 		add_action( 'tgmpa_register', array( $this, 'register_required_plugins' ) );
 
 		// Add the options page and menu item.
