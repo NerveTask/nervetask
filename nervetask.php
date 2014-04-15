@@ -13,7 +13,7 @@
  * Version:           0.1.0
  * Author:            Patrick Daly
  * Author URI:        http://developdaly.com
- * Text Domain:       nervetask-locale
+ * Text Domain:       nervetask
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
