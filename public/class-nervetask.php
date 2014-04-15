@@ -266,7 +266,6 @@ class NerveTask {
 	 */
 	public function enqueue_styles() {
 		wp_enqueue_style( $this->plugin_slug . '-bootstrap-daterangepicker', plugins_url( 'assets/css/vendor/bootstrap-daterangepicker/bootstrap-daterangepicker.css', __FILE__ ), array(), self::VERSION );
-		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array($this->plugin_slug . '-bootstrap-daterangepicker'), self::VERSION );
 	}
 
 	/**
