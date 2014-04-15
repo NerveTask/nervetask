@@ -17,31 +17,31 @@
 				dataType: 'json',
 				data: $(data).serialize()
 			})
-				.done(function (response) {
-					if (response) {
-						try {
-							resetForm($(data));
-						} catch (err) {
+			.done(function (response) {
+				if (response) {
+					try {
+						resetForm($(data));
+					} catch (err) {
 
-						}
 					}
-				})
-				.fail(function (response) {
+				}
+			})
+			.fail(function (response) {
 
-				})
-				.always(function (response) {
+			})
+			.always(function (response) {
 
-					if (triggerType) {
-						$.event.trigger({
-							type: triggerType,
-							message: response,
-							time: new Date()
-						});
-					}
+				if (triggerType) {
+					$.event.trigger({
+						type: triggerType,
+						message: response,
+						time: new Date()
+					});
+				}
 
-				});
+			});
 
-			event.preventDefault();
+		event.preventDefault();
 
 		}
 
