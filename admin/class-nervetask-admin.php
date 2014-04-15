@@ -52,10 +52,6 @@ class NerveTask_Admin {
 		
 		add_action( 'tgmpa_register', array( $this, 'register_required_plugins' ) );
 
-		// Load admin style sheet and JavaScript.
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
-
 		// Add the options page and menu item.
 		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
 
@@ -76,46 +72,6 @@ class NerveTask_Admin {
 		}
 
 		return self::$instance;
-	}
-
-	/**
-	 * Register and enqueue admin-specific style sheet.
-	 *
-	 * @since     0.1.0
-	 *
-	 * @return    null    Return early if no settings page is registered.
-	 */
-	public function enqueue_admin_styles() {
-
-		if ( ! isset( $this->plugin_screen_hook_suffix ) ) {
-			return;
-		}
-
-		$screen = get_current_screen();
-		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'assets/css/admin.css', __FILE__ ), array(), NerveTask::VERSION );
-		}
-
-	}
-
-	/**
-	 * Register and enqueue admin-specific JavaScript.
-	 *
-	 * @since     0.1.0
-	 *
-	 * @return    null    Return early if no settings page is registered.
-	 */
-	public function enqueue_admin_scripts() {
-
-		if ( ! isset( $this->plugin_screen_hook_suffix ) ) {
-			return;
-		}
-
-		$screen = get_current_screen();
-		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery' ), NerveTask::VERSION );
-		}
-
 	}
 
 	/**
