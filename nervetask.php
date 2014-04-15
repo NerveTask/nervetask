@@ -52,15 +52,6 @@ add_action( 'plugins_loaded', array( 'NerveTask_Status_Colors', 'get_instance' )
  * Dashboard and Administrative Functionality
  *----------------------------------------------------------------------------*/
 
-/*
- * If Ajax is needed within the dashboard, change the following conditional to:
- *
- * if ( is_admin() ) {
- *   ...
- * }
- *
- * The code below is intended to to give the lightest footprint possible.
- */
 if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-nervetask-admin.php' );
