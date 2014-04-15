@@ -74,7 +74,7 @@ class NerveTask_Status_Colors {
 		foreach ( $terms as $term ) {
 			$options[] = array(
 				'name' 		  => 'nervetask_status_' . $term->term_id . '_color',
-				'std' 		  => '',
+				'std' 		  => '#cccccc',
 				'placeholder' => '#',
 				'label' 	  => '<strong>' . $term->name . '</strong>',
 				'desc'		  => __( 'Hex value for the color of this task status.', 'nervetask_colors' ),
