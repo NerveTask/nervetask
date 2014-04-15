@@ -76,29 +76,29 @@ class NerveTask_Settings {
 					__( 'General', 'nervetask' ),
 					array(
 						array(
-							'name'        => 'nervetask_walled_garden',
-							'std'         => '1',
-							'label'       => __( 'Walled garden', 'nervetask' ),
-							'cb_label'    => __( 'Require login to view the front-end of the site', 'nervetask' ),
-							'desc'        => __( 'If enabled, task will not be visible to the public. Uusers will be required to login.', 'nervetask' ),
-							'type'        => 'checkbox',
-							'attributes'  => array()
+							'name'			=> 'nervetask_walled_garden',
+							'std'			=> '1',
+							'label'			=> __( 'Walled garden', 'nervetask' ),
+							'cb_label'		=> __( 'Require login to view the front-end of the site', 'nervetask' ),
+							'desc'			=> __( 'If enabled, task will not be visible to the public. Uusers will be required to login.', 'nervetask' ),
+							'type'			=> 'checkbox',
+							'attributes'	=> array()
 						),
 						array(
-							'name'        => 'nervetask_default_status',
-							'std'         => 'new',
-							'label'       => __( 'Default status', 'nervetask' ),
-							'desc'        => __( 'Select a default status that will be assigned to each new task.', 'nervetask' ),
-							'type'        => 'select',
-							'options'     => $status_options
+							'name'			=> 'nervetask_default_status',
+							'std'			=> 'new',
+							'label'			=> __( 'Default status', 'nervetask' ),
+							'desc'			=> __( 'Select a default status that will be assigned to each new task.', 'nervetask' ),
+							'type'			> 'select',
+							'options'		=> $status_options
 						),
 						array(
-							'name'        => 'nervetask_default_priority',
-							'std'         => 'normal',
-							'label'       => __( 'Default priority', 'nervetask' ),
-							'desc'        => __( 'Select a default priority that will be assigned to each new task.', 'nervetask' ),
-							'type'        => 'select',
-							'options'     => $priority_options
+							'name'			=> 'nervetask_default_priority',
+							'std'			=> 'normal',
+							'label'			=> __( 'Default priority', 'nervetask' ),
+							'desc'			=> __( 'Select a default priority that will be assigned to each new task.', 'nervetask' ),
+							'type'			=> 'select',
+							'options'		=> $priority_options
 						)
 					),
 					
@@ -161,11 +161,11 @@ class NerveTask_Settings {
 
 						foreach ( $section[1] as $option ) {
 
-							$placeholder    = ( ! empty( $option['placeholder'] ) ) ? 'placeholder="' . $option['placeholder'] . '"' : '';
-							$class          = ! empty( $option['class'] ) ? $option['class'] : '';
-							$value          = get_option( $option['name'] );
-							$option['type'] = ! empty( $option['type'] ) ? $option['type'] : '';
-							$attributes     = array();
+							$placeholder	= ( ! empty( $option['placeholder'] ) ) ? 'placeholder="' . $option['placeholder'] . '"' : '';
+							$class			= ! empty( $option['class'] ) ? $option['class'] : '';
+							$value			= get_option( $option['name'] );
+							$option['type']	= ! empty( $option['type'] ) ? $option['type'] : '';
+							$attributes		= array();
 
 							if ( ! empty( $option['attributes'] ) && is_array( $option['attributes'] ) )
 								foreach ( $option['attributes'] as $attribute_name => $attribute_value )
@@ -231,7 +231,7 @@ class NerveTask_Settings {
 				<p class="submit">
 					<input type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'nervetask' ); ?>" />
 				</p>
-		    </form>
+			</form>
 		</div>
 		<script type="text/javascript">
 			jQuery('.nav-tab-wrapper a').click(function() {
