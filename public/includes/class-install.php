@@ -14,7 +14,6 @@ class NerveTask_Install {
 	 * @return void
 	 */
 	public function __construct() {
-		
 		add_action( 'init', array( $this, 'default_terms' ) );
 		add_action( 'init', array( $this, 'default_email' ) );
 		add_action( 'init', array( $this, 'cron' ), 11 );
@@ -27,9 +26,9 @@ class NerveTask_Install {
 	 * @return void
 	 */
 	public function default_terms() {
-		
-		//if ( get_option( 'nervetask_installed_terms' ) == 1 )
-			//return;
+
+		if ( get_option( 'nervetask_installed_terms' ) == 1 )
+			return;
 
 		$taxonomies = array(
 			'nervetask_status' => array(
@@ -59,9 +58,9 @@ class NerveTask_Install {
 
 		update_option( 'nervetask_installed_terms', 1 );
 	}
-	
+
 	public function default_email() {
-	
+
 $message = 'A new task (#[post_id] "[post_title]") was created by [post_author]
 
 --------------------
@@ -115,7 +114,7 @@ View: [permalink]
 		update_post_meta( $post_id, 'email_bcc', $email_bcc );
 		update_post_meta( $post_id, 'email_bcc_role',$email_bcc_role );
 		update_post_meta( $post_id, 'email_subject', $email_subject );
-		
+
 	}
 
 	/**
@@ -126,5 +125,3 @@ View: [permalink]
 		wp_schedule_event( time(), 'hourly', 'nervetask_check_for_past_due_tasks' );
 	}
 }
-
-new NerveTask_Install();

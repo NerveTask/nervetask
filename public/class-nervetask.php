@@ -9,8 +9,6 @@
  * @copyright 2014 NerveTask
  */
 
-add_action( 'plugins_loaded', array( 'NerveTask_Task', 'get_instance' ) );
-
 /**
  * @package NerveTask
  * @author  Patrick Daly <patrick@developdaly.com>
@@ -231,7 +229,9 @@ class NerveTask {
 	 */
 	private static function single_activate() {
 
-		include( 'includes/class-install.php' );
+		require_once( 'includes/class-install.php' );
+		new NerveTask_Install;
+		add_action( 'plugins_loaded', array( 'NerveTask_Install', 'get_instance' ) );
 
 	}
 
@@ -280,7 +280,7 @@ class NerveTask {
 		wp_enqueue_script( $this->plugin_slug . '-bootstrap-daterangepicker', plugins_url( 'assets/js/vendor/bootstrap-daterangepicker/bootstrap-daterangepicker.js', __FILE__ ), array($this->plugin_slug . '-bootstrap', $this->plugin_slug . '-moment'), self::VERSION );
 		wp_enqueue_script( $this->plugin_slug . '-due_date', plugins_url( 'assets/js/due_date.js', __FILE__ ), array( 'jquery', $this->plugin_slug . '-bootstrap-daterangepicker' ), self::VERSION );
 		wp_localize_script( $this->plugin_slug . '-plugin-script', 'nervetask', array(
-			'ajaxurl'	=> admin_url( 'admin-ajax.php' )
+			'ajaxurl'		=> admin_url( 'admin-ajax.php' ),
 		) );
 	}
 
@@ -459,7 +459,7 @@ class NerveTask {
 			),
 			'query_var' => true
 		);
-		
+
 		register_taxonomy( 'nervetask_status',		array( 'nervetask' ), $status_args );
 		register_taxonomy( 'nervetask_priority',	array( 'nervetask' ), $priority_args );
 		register_taxonomy( 'nervetask_category',	array( 'nervetask' ), $category_args );

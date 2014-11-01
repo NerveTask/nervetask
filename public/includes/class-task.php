@@ -180,7 +180,7 @@ class NerveTask_Task {
 			// Convert array values from strings to integers
 			$categories = array_map('intval', $categories);
 			wp_set_post_terms( $post_id, $categories, 'nervetask_category' );
-			
+
 		}
 
 		// Set the task priority
@@ -190,7 +190,7 @@ class NerveTask_Task {
 			// Convert array values from strings to integers
 			$priorities = array_map('intval', $priorities);
 			wp_set_post_terms( $post_id, $priorities,	'nervetask_priority' );
-			
+
 		} else {
 			$default_priority = get_option( 'nervetask_default_priority' );
 			if( isset( $default_priority ) ) {
@@ -200,12 +200,12 @@ class NerveTask_Task {
 
 		// Set the task status
 		if( isset( $data['nervetask_status'] ) ) {
-			
+
 			$statuses = $data['nervetask_status'];
 			// Convert array values from strings to integers
 			$statuses = array_map('intval', $statuses);
 			wp_set_post_terms( $post_id, $statuses,	'nervetask_status' );
-			
+
 		} else {
 			$default_status = get_option( 'nervetask_default_status' );
 			if( isset( $default_status ) ) {
@@ -215,13 +215,19 @@ class NerveTask_Task {
 
 		// Set the task due date
 		if( isset( $data['nervetask_due_date'] ) && ! empty( $data['nervetask_due_date'] ) ) {
-			
-			$date = DateTime::createFromFormat( 'm/d/Y h:m a', $data['nervetask_due_date'] );
+
+			$timezone_string = get_option( 'timezone_string' );
+			$date = DateTime::createFromFormat( 'Y-m-d', $data['nervetask_due_date'] );
+
 			$date_errors = DateTime::getLastErrors();
-			if ($date_errors['warning_count'] + $date_errors['error_count'] > 0) {
-				$errors[] = 'Some useful error message goes here.';
+			if ( $date_errors['warning_count'] + $date_errors['error_count'] > 0 ) {
+				foreach( $date_errors['errors'] as $error ) {
+					$errors[] = $error;
+				}
+				die( json_encode( $errors ) );
 			}
-			die(json_encode($date_errors));
+
+			$date = $date->format( 'U' );
 			$due_date = array(
 				'due_date'	=> $date,
 				'timestamp'	=> new DateTime()
@@ -423,7 +429,7 @@ class NerveTask_Task {
 
 		$status		= $data['status'];
 		$post_id	= $data['post_id'];
-		
+
 		// Convert array values from strings to integers
 		$status = array_map('intval', $status);
 
@@ -590,7 +596,7 @@ class NerveTask_Task {
 
 		return $output;
 	}
-	
+
 	/**
 	 * Updates the category of a task.
 	 *
@@ -609,9 +615,9 @@ class NerveTask_Task {
 			$output = __( 'You don\'t have proper permissions to update the due date of this task. :(', 'nervetask' );
 			return $output;
 		}
-		
+
 		$post_id	= $data['post_id'];
-		
+
 		$meta_value = array(
 			'due_date'	=> $data['nervetask_due_date'],
 			'timestamp'	=> new DateTime()

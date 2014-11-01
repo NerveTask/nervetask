@@ -5,8 +5,8 @@
 
 	if( $due_date_object_decoded ) {
 		if( $due_date_object_decoded->due_date ) {
-			$due_date = new DateTime($due_date_object_decoded->due_date);
-			$due_date = $due_date->format(get_option('date_format')) .' '. $due_date->format(get_option('time_format'));
+			$due_date = new DateTime( $due_date_object_decoded->due_date );
+			$due_date = $due_date->format( get_option( 'date_format' ) );
 		} else {
 			$due_date = '';
 		}
